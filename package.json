@@ -1,0 +1,20 @@
+{
+  "name": "amazon-pay-node",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon index.js"
+  },
+  "author": "Saquib Nasim",
+  "license": "MIT",
+  "dependencies": {
+    "@hapi/hapi": "^20.0.1",
+    "@hapi/joi": "^17.1.1",
+    "axios": "^0.20.0",
+    "hapi": "^18.1.0",
+    "request": "^2.88.2",
+    "xml2js": "^0.4.23"
+  }
+}
