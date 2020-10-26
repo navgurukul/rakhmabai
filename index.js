@@ -1,7 +1,9 @@
 const Hapi = require("@hapi/hapi");
 const routes = require("./lib/routes");
+const secretKeys = require("./constants");
+
 const server = new Hapi.server({
-  port: 8000,
+  port: secretKeys.port,
   host: "localhost",
 });
 
