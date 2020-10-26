@@ -1,0 +1,14 @@
+{
+    "apps": [{
+        "exec_mode": "fork",
+        "instances": 1,
+        "script": "./index.js",
+        "name": "amazon-pay-pi-be",
+        "interpreter": "node@14.2.0",
+        "env": {
+            "GALILEO_ENV": "prod"
+        },
+        "out_file": "/logs/amazon-pay-pi-be.log",
+        "error_file": "/logs/amazon-pay-pi-be-err.log"
+    }]
+}
