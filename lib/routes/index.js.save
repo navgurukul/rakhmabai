@@ -1,0 +1,107 @@
+const backendSDK = require("../amazonPay/PWAINBackendSDK");
+const Joi = require("@hapi/joi");
+const secretKeys = require("../../constants");
+
+var config = {
+  merchant_id: secretKeys.merchantId,
+  access_key: secretKeys.accessKey,
+  secret_key: secretKeys.secretKey,
+  base_url: "amazonpay.amazon.in",
+};
+var client = new backendSDK(config);
+
+var returnUrl = "https://donate.navgurukul.org/amazonpay";
+
+module.exports = [
+  {
+    method: "GET",
+    path: "/",
+    handler: async () => {
+      return "Home Page";
+    },
+  },
+  {
+    method: "GET",
+    path: "/pay",
+    options: {
+      validate: {
+        query: Joi.object({
+          sellerOrderId: Joi.string(),
+          orderTotalAmount: Joi.string(),
+          orderTotalCurrencyCode: Joi.string(),
+          transactionTimeout: Joi.string(),
+        }),
+      },
+      handler: async (request, h) => {
+        let requestParameters = {};
+
+        // This is just to get rid of prototype null of the object
+        Object.keys(request.query).forEach((key) => {
+          requestParameters[key] = request.query[key];
+        });
+
+        var amazonPayPaymentUrl = client.getProcessPaymentUrl(
+          requestParameters,
+          returnUrl
+        );
+        return "https://" + amazonPayPaymentUrl);
+      },
+    },
+  },
+  {
+    method: "GET",
+    path: "/verifySignature",
+    options: {
+      validate: {
+        query: Joi.object({
+          signature: Joi.string(),
+          orderTotalAmount: Joi.string(),
+          sellerOrderId: Joi.string(),
+        }),
+      },
+      handler: async (request) => {
+        var responseMap = {};
+        const X =
+          "https://donate.navgurukul.org/amazonpay?orderTotalCurrencyCode=INR&orderTotalAmount=1.00&signature=mZuJQomUgH1tXAqIoSBAXbvZkhbvNSu3WNfpVFDltvc%3D&amazonOrderId=S04%2D0305685%2D8764907&description=Txn%20Success&reasonCode=001&transactionDate=1603697394678&sellerOrderId=983429384713268123187231&status=SUCCESS";
+        const requestParameters = new URLSearchParams(X);
+        responseMap["signature"] = requestParameters.get("signature");
+        responseMap["orderTotalAmount"] = requestParameters.get(
+          "orderTotalAmount"
+        );
+        responseMap["sellerOrderId"] = requestParameters.get("sellerOrderId");
+        console.log(responseMap);
+
+        const response = client.verifySignature(responseMap);
+        console.log(response);
+        return "Ok";
+      },
+    },
+  },
+  {
+    method: "GET",
+    path: "/listOrderRef",
+    handler: async () => {
+      let res = "Ok";
+      const days7Back = new Date(
+        new Date().getTime() - 7 * 24 * 60 * 60 * 1000
+      );
+      const days7Forward = new Date(
+        new Date().getTime() + 7 * 24 * 60 * 60 * 1000
+      );
+      var requestParameters = {};
+      requestParameters["queryId"] = "12121";
+      requestParameters["startTime"] = days7Back.toISOString();
+      requestParameters["endTime"] = days7Forward.toISOString();
+
+      client.listOrderReference(requestParameters, (response) => {
+        console.log(response);
+        res = JSON.stringify(response);
+      });
+      return "Ok";
+    },
+  },
+];
+
+// https://donate.navgurukul.org/amazonpay?orderTotalCurrencyCode=INR&orderTotalAmount=1.00&signature=fhNJMsxu2wrOcJxKeq9o%2FyOSrZl6jMNIVIowgzsjr2U%3D&amazonOrderId=P04%2D3282500%2D8505534&description=Txn%20Success&reasonCode=001&transactionDate=1603644782865&sellerOrderId=3123&status=SUCCESS
+// https://donate.navgurukul.org/amazonpay?orderTotalCurrencyCode=INR&orderTotalAmount=1.00&signature=E2NPyjZSdScxaL6Pu%2BWUYPlCQJ%2FfCVlJxa6WM7CY4P4%3D&amazonOrderId=S04%2D3603917%2D0658765&description=Txn%20Success&reasonCode=001&transactionDate=1603696846928&sellerOrderId=123456789&status=SUCCESS
+// https://donate.navgurukul.org/amazonpay?orderTotalCurrencyCode=INR&orderTotalAmount=1.00&signature=mZuJQomUgH1tXAqIoSBAXbvZkhbvNSu3WNfpVFDltvc%3D&amazonOrderId=S04%2D0305685%2D8764907&description=Txn%20Success&reasonCode=001&transactionDate=1603697394678&sellerOrderId=983429384713268123187231&status=SUCCESS
