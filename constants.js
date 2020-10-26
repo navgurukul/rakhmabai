@@ -6,4 +6,5 @@ module.exports = {
   merchantId: process.env.MERCHANT_ID,
   accessKey: process.env.ACCESS_KEY,
   secretKey: process.env.SECRET_KEY,
+  returnURL: process.env.RETURN_URL,
 };
