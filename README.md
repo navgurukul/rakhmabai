@@ -1,4 +1,4 @@
-# amazon-pay-node
+# ng-tools-be
 
 ### Install dependencies
 `npm install`\
