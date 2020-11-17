@@ -82,16 +82,15 @@ router.post("/addContacts", async (req, res, next) => {
 router.post("/sendMessage", async (req, res, next) => {
   let message = req.body.message;
   console.log(message);
-  const H = await waMain(message, allFiles.csv[0], allFiles.attachments);
-  console.log(H);
-  //   Object.keys(allFiles).forEach((key) => {
-  //     allFiles[key].forEach((file) => {
-  //       fs.unlinkSync(path.join(__dirname, "../../images/whatsapp", file));
-  //     });
-  //   });
+  await waMain(message, allFiles.csv[0], allFiles.attachments);
+  Object.keys(allFiles).forEach((key) => {
+    allFiles[key].forEach((file) => {
+      fs.unlinkSync(path.join(__dirname, "../../images/whatsapp", file));
+    });
+  });
 
-  //   allFiles = { attachments: [], csv: [] };
-  // res.sendStatus(200);
+  allFiles = { attachments: [], csv: [] };
+  res.sendStatus(200);
 });
 
 module.exports = router;
