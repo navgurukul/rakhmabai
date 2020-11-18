@@ -58,8 +58,8 @@ async function main(
         path: eachPath,
       });
     });
-    mailOptions.html = getHTML(htmlString, rows[i][1]);
-    mailOptions.to = rows[i][1] + "<" + rows[i][2] + ">";
+    mailOptions.html = getHTML(htmlString, rows[i][0]);
+    mailOptions.to = rows[i][0] + "<" + rows[i][1] + ">";
 
     await transporter.sendMail(mailOptions, function (err, info) {
       if (err) console.log(err);

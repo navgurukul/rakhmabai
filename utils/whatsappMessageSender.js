@@ -2,13 +2,17 @@ const fs = require("fs");
 const path = require("path");
 const parse = require("csv-parse/lib/sync");
 const { readFile } = require("./fileHandler");
-
 const wa = require("@open-wa/wa-automate");
+const { ev } = require("@open-wa/wa-automate");
 
 async function waMain(message, peopleCSV, imagesPath) {
-  const client = await wa.create({ headless: false });
-
-  start(client, message, peopleCSV, imagesPath);
+  wa.create().then((client) => start(client, message, peopleCSV, imagesPath));
+  ev.on("qr.**", (data, sessionId, namespace) => {
+    const base64data = data.replace(/^data:image\/png;base64,/, "");
+    const qrPath = path.join(__dirname, "../qrcode/");
+    fs.writeFileSync(path.resolve(qrPath, "qr.png"), base64data, "base64");
+    console.log(`${namespace} event detected for session ${sessionId}`, data);
+  });
 }
 
 async function start(client, message, peopleCSV, imagesPath) {
@@ -35,4 +39,5 @@ async function start(client, message, peopleCSV, imagesPath) {
     }
   }
 }
+
 module.exports = { waMain };

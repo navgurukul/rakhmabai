@@ -55,5 +55,4 @@ async function main(csvPath) {
   await addContacts(csvPath);
   return true;
 }
-
 module.exports = { main };
