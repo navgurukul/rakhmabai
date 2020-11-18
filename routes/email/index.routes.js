@@ -83,13 +83,13 @@ router.post("/sendEmail", async (req, res, next) => {
     req.body.email,
     req.body.password
   );
-  Object.keys(allFiles).forEach((key) => {
-    allFiles[key].forEach((file) => {
-      fs.unlinkSync(path.join(__dirname, "../../images/", file));
-    });
-  });
+  // Object.keys(allFiles).forEach((key) => {
+  //   allFiles[key].forEach((file) => {
+  //     fs.unlinkSync(path.join(__dirname, "../../images/", file));
+  //   });
+  // });
 
-  allFiles = { attachments: [], csv: [] };
+  // allFiles = { attachments: [], csv: [] };
   res.sendStatus(200);
 });
 
