@@ -4,7 +4,7 @@ const fs = require("fs");
 const path = require("path");
 const router = express.Router();
 const { main } = require("../../utils/addContacts");
-const { waMain } = require("../../utils/whatsappMessageSender");
+const { waMain, createClient } = require("../../utils/whatsappMessageSender");
 
 const DIR = path.join(__dirname, "../../images/whatsapp");
 
@@ -79,6 +79,10 @@ router.post("/addContacts", async (req, res, next) => {
   res.sendStatus(200);
 });
 
+router.post("/generateQR", async (req, res, next) => {
+  let message = req.body.message;
+  await createClient(message, allFiles.csv[0], allFiles.attachments);
+});
 router.post("/sendMessage", async (req, res, next) => {
   let message = req.body.message;
   console.log(allFiles.csv[0]);

@@ -6,6 +6,10 @@ const wa = require("@open-wa/wa-automate");
 const { ev } = require("@open-wa/wa-automate");
 
 async function waMain(message, peopleCSV, imagesPath) {
+  await createClient(message, peopleCSV, imagesPath);
+}
+
+async function createClient(message, peopleCSV, imagesPath) {
   wa.create().then((client) => start(client, message, peopleCSV, imagesPath));
   ev.on("qr.**", (data, sessionId, namespace) => {
     const base64data = data.replace(/^data:image\/png;base64,/, "");
@@ -40,4 +44,4 @@ async function start(client, message, peopleCSV, imagesPath) {
   }
 }
 
-module.exports = { waMain };
+module.exports = { waMain, createClient, start };
