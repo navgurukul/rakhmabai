@@ -89,7 +89,7 @@ router.post("/sendEmail", async (req, res, next) => {
   //   });
   // });
 
-  // allFiles = { attachments: [], csv: [] };
+  allFiles = { attachments: [], csv: [] };
   res.sendStatus(200);
 });
 

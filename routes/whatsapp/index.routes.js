@@ -81,7 +81,7 @@ router.post("/addContacts", async (req, res, next) => {
 
 router.post("/sendMessage", async (req, res, next) => {
   let message = req.body.message;
-  console.log(message);
+  console.log(allFiles.csv[0]);
   await waMain(message, allFiles.csv[0], allFiles.attachments);
   // Object.keys(allFiles).forEach((key) => {
   //   allFiles[key].forEach((file) => {
@@ -89,7 +89,7 @@ router.post("/sendMessage", async (req, res, next) => {
   //   });
   // });
 
-  // allFiles = { attachments: [], csv: [] };
+  allFiles = { attachments: [], csv: [] };
   res.sendStatus(200);
 });
 
