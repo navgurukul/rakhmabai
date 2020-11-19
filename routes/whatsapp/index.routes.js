@@ -81,8 +81,13 @@ router.post("/addContacts", async (req, res, next) => {
 
 router.post("/generateQR", async (req, res, next) => {
   let message = req.body.message;
-  await createClient(message, allFiles.csv[0], allFiles.attachments);
+  let qr;
+  await createClient(message, allFiles.csv[0], allFiles.attachments, (data) => {
+    qr = data;
+    res.send(qr);
+  });
 });
+
 router.post("/sendMessage", async (req, res, next) => {
   let message = req.body.message;
   console.log(allFiles.csv[0]);

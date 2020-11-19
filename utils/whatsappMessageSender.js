@@ -6,16 +6,16 @@ const wa = require("@open-wa/wa-automate");
 const { ev } = require("@open-wa/wa-automate");
 
 async function waMain(message, peopleCSV, imagesPath) {
-  await createClient(message, peopleCSV, imagesPath);
+  await createClient(message, peopleCSV, imagesPath, cb);
 }
 
-async function createClient(message, peopleCSV, imagesPath) {
+async function createClient(message, peopleCSV, imagesPath, cb) {
   wa.create().then((client) => start(client, message, peopleCSV, imagesPath));
-  ev.on("qr.**", (data, sessionId, namespace) => {
-    const base64data = data.replace(/^data:image\/png;base64,/, "");
-    const qrPath = path.join(__dirname, "../qrcode/");
-    fs.writeFileSync(path.resolve(qrPath, "qr.png"), base64data, "base64");
-    console.log(`${namespace} event detected for session ${sessionId}`, data);
+  ev.on("qr.**", (data) => {
+    // const base64data = data.replace(/^data:image\/png;base64,/, "");
+    // const qrPath = path.join(__dirname, "../qrcode/");
+    // fs.writeFileSync(path.resolve(qrPath, "qr.png"), base64data, "base64");
+    cb(data);
   });
 }
 
