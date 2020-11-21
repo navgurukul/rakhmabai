@@ -88,7 +88,7 @@ router.post("/generateQR", async (req, res, next) => {
 
   const whatsappDir = path.join(__dirname, "../../images/whatsapp");
   if (fs.existsSync(whatsappDir)) {
-    fs.unlinkSync(whatsappDir);
+    fs.rmdirSync(whatsappDir, { recursive: true });
   }
   fs.mkdirSync(whatsappDir);
 
