@@ -12,11 +12,9 @@ async function waMain(message, peopleCSV, imagesPath) {
 async function createClient(message, peopleCSV, imagesPath, cb) {
   wa.create().then((client) => start(client, message, peopleCSV, imagesPath));
   ev.on("qr.**", (data) => {
-    // const base64data = data.replace(/^data:image\/png;base64,/, "");
-    // const qrPath = path.join(__dirname, "../qrcode/");
-    // fs.writeFileSync(path.resolve(qrPath, "qr.png"), base64data, "base64");
     cb(data);
   });
+  return;
 }
 
 async function start(client, message, peopleCSV, imagesPath) {

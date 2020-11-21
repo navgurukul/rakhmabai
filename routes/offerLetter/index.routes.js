@@ -5,11 +5,26 @@ const path = require("path");
 const router = express.Router();
 const { main } = require("../../utils/emailSender");
 
+const campus = {
+  Pune: {
+    whatsapp_chat_link: "",
+    facility_in_charge: {
+      name: "",
+      number: "",
+    },
+    location: {},
+  },
+  Bangalore: {
+    whatsapp_chat_link: "",
+    facility_in_charge: {
+      name: "",
+      number: "",
+    },
+    location: {},
+  },
+};
 router.post("/offerLetter/sendEmail", async (req, res, next) => {
-  let email = req.body.mailBody;
-  email =
-    "<p>" + email.replace(/\n{2,}/g, "</p><p>").replace(/\n/g, "<br>") + "</p>";
-  console.log(req.body);
+  const { name, date, campus } = req.body;
   await main(
     allFiles.csv[0],
     allFiles.attachments,
