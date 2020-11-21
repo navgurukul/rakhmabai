@@ -87,12 +87,6 @@ router.post("/generateQR", async (req, res, next) => {
     fs.unlinkSync(session);
   }
 
-  const whatsappDir = path.join(__dirname, "../../images/whatsapp");
-  if (fs.existsSync(whatsappDir)) {
-    rimraf.sync(whatsappDir);
-  }
-  fs.mkdirSync(whatsappDir);
-
   let message = req.body.message;
   let qr;
   await createClient(message, allFiles.csv[0], allFiles.attachments, (data) => {
@@ -103,6 +97,11 @@ router.post("/generateQR", async (req, res, next) => {
       res.end();
     }
   });
+  const whatsappDir = path.join(__dirname, "../../images/whatsapp");
+  if (fs.existsSync(whatsappDir)) {
+    rimraf.sync(whatsappDir);
+  }
+  fs.mkdirSync(whatsappDir);
 });
 
 router.post("/sendMessage", async (req, res, next) => {
