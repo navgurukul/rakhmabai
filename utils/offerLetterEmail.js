@@ -95,8 +95,6 @@ async function main(
     attachments: [],
   };
 
-  var htmlString = await readFile(__dirname + "/content.html");
-
   const attachmentsDir = path.join(
     __dirname,
     `../images/offerLetter/${campus}`
@@ -104,12 +102,25 @@ async function main(
 
   const attachmentFiles = fs.readdirSync(attachmentsDir);
   attachmentFiles.forEach((file) => {
+    const eachPath = path.join(
+      __dirname,
+      `../images/offerLetter/${campus}/`,
+      file
+    );
     mailOptions.attachments.push({
       fileName: file,
-      path: path.join(),
+      path: eachPath,
     });
   });
+  mailOptions.attachments.push({
+    fileName: `admission_Letter.pdf`,
+    path: path.join(
+      __dirname,
+      "../images/offerLetter/pdf/admission_letter.pdf"
+    ),
+  });
 
+  var htmlString = await readFile(__dirname + "/content.html");
   mailOptions.html = getHTML(htmlString, receiverName, campus);
   mailOptions.to = receiverEmail + "<" + receiverEmail + ">";
 
@@ -117,7 +128,7 @@ async function main(
     if (err) console.log(err);
     else {
       console.log(info);
-      console.log("Sent", i + 1, "emails. Next index: ", i + 1);
+      console.log(`Sent to ${receiverName} ${receiverEmail}`);
     }
   });
 }
