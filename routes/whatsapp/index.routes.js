@@ -88,7 +88,11 @@ router.post("/generateQR", async (req, res, next) => {
 
   let message = req.body.message;
   let qr;
-  await createClient(message, allFiles.csv[0], allFiles.attachments, (data) => {
+  const csvFile = allFiles.csv[0];
+  const attachmentsFile = allFiles.attachments;
+  allFiles = { attachments: [], csv: [] };
+
+  await createClient(message, csvFile, attachmentsFile, (data) => {
     qr = data;
     try {
       res.send(qr);
@@ -96,7 +100,6 @@ router.post("/generateQR", async (req, res, next) => {
       res.end();
     }
   });
-  allFiles = { attachments: [], csv: [] };
   // const whatsappDir = path.join(__dirname, "../../images/whatsapp");
   // if (fs.existsSync(whatsappDir)) {
   //   rimraf.sync(whatsappDir);
