@@ -1,6 +1,7 @@
 const express = require("express");
 const multer = require("multer");
 const fs = require("fs");
+const rimraf = require("rimraf");
 const path = require("path");
 const router = express.Router();
 const { main } = require("../../utils/addContacts");
@@ -88,7 +89,7 @@ router.post("/generateQR", async (req, res, next) => {
 
   const whatsappDir = path.join(__dirname, "../../images/whatsapp");
   if (fs.existsSync(whatsappDir)) {
-    fs.rmdirSync(whatsappDir, { recursive: true });
+    rimraf.sync(whatsappDir);
   }
   fs.mkdirSync(whatsappDir);
 
