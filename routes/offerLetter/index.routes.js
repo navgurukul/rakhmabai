@@ -3,7 +3,6 @@ const multer = require("multer");
 const fs = require("fs");
 const path = require("path");
 const router = express.Router();
-const { readFile } = require("../../utils/fileHandler");
 const { main } = require("../../utils/offerLetterEmail");
 const { olGenerator } = require("../../utils/offerLetterGenerator");
 

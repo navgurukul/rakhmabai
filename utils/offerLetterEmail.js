@@ -32,7 +32,11 @@ function getHTML(htmlString, receiverName, campus) {
         name: "Shweta",
         number: "+91-9718602971",
       },
-      location: { address: "", link: "https://maps.app.goo.gl/aoYyN" },
+      location: {
+        address:
+          "45/1, 45/2, Avalahalli Huskur Panchayath, Sarjapura Hobli, Anekal Taluk Dist, Majra Ahir, Bengaluru, Karnataka 560099",
+        link: "https://maps.app.goo.gl/aoYyN",
+      },
     },
     Dharamshala: {},
   };
