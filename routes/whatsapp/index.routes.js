@@ -82,7 +82,6 @@ router.post("/addContacts", async (req, res, next) => {
 
 router.post("/generateQR", async (req, res, next) => {
   const session = path.join(__dirname, "../../session.data.json");
-  console.log(session);
   if (fs.existsSync(session)) {
     fs.unlinkSync(session);
   }
@@ -97,11 +96,12 @@ router.post("/generateQR", async (req, res, next) => {
       res.end();
     }
   });
-  const whatsappDir = path.join(__dirname, "../../images/whatsapp");
-  if (fs.existsSync(whatsappDir)) {
-    rimraf.sync(whatsappDir);
-  }
-  fs.mkdirSync(whatsappDir);
+  allFiles = { attachments: [], csv: [] };
+  // const whatsappDir = path.join(__dirname, "../../images/whatsapp");
+  // if (fs.existsSync(whatsappDir)) {
+  //   rimraf.sync(whatsappDir);
+  // }
+  // fs.mkdirSync(whatsappDir);
 });
 
 router.post("/sendMessage", async (req, res, next) => {
