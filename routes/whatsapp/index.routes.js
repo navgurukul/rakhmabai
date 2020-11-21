@@ -80,6 +80,11 @@ router.post("/addContacts", async (req, res, next) => {
 });
 
 router.post("/generateQR", async (req, res, next) => {
+  const session = path.join(__dirname, "../../session.data.json");
+  console.log(session);
+  if (fs.existsSync(session)) {
+    fs.unlinkSync(session);
+  }
   let message = req.body.message;
   let qr;
   await createClient(message, allFiles.csv[0], allFiles.attachments, (data) => {
