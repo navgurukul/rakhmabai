@@ -89,7 +89,11 @@ router.post("/generateQR", async (req, res, next) => {
   let qr;
   await createClient(message, allFiles.csv[0], allFiles.attachments, (data) => {
     qr = data;
-    res.send(qr);
+    try {
+      res.send(qr);
+    } catch {
+      res.end();
+    }
   });
 });
 
