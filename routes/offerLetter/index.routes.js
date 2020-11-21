@@ -23,6 +23,7 @@ const campus = {
     location: {},
   },
 };
+
 router.post("/offerLetter/sendEmail", async (req, res, next) => {
   const { name, date, campus } = req.body;
   await main(

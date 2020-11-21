@@ -98,6 +98,11 @@ router.post("/generateQR", async (req, res, next) => {
 });
 
 router.post("/sendMessage", async (req, res, next) => {
+  const whatsappDir = path.join(__dirname, "../../images/whatsapp");
+  if (fs.existsSync(session)) {
+    fs.unlinkSync(session);
+  }
+  fs.mkdirSync(whatsappDir);
   let message = req.body.message;
   console.log(allFiles.csv[0]);
   await waMain(message, allFiles.csv[0], allFiles.attachments);
