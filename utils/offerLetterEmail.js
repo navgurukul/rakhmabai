@@ -18,7 +18,7 @@ function getHTML(htmlString, receiverName, campus) {
       },
       location: {
         address:
-          "Flora Institute of Technology, Pune Khed-Shivapur Toll Plaza, Khopi, Maharashtra 412205(Phone: 098906 73701)",
+          "Flora Institute of Technology, Pune Khed-Shivapur Toll Plaza, Khopi, Maharashtra 412205 (Phone: 098906 73701)",
         link: "https://maps.app.goo.gl/PnrmsVXmEgERXdEf7",
       },
     },
@@ -51,7 +51,7 @@ function getHTML(htmlString, receiverName, campus) {
     campusObj[campus].facility_in_charge.name
   );
   htmlString = htmlString.replace(
-    /CAMPUS_FACILITY_INCHARGE_NUMBER/g,
+    /CAMPUS_INCHARGE_NUMBER/g,
     campusObj[campus].facility_in_charge.number
   );
   htmlString = htmlString.replace(
@@ -59,7 +59,7 @@ function getHTML(htmlString, receiverName, campus) {
     campusObj[campus].tech_facility_in_charge.name
   );
   htmlString = htmlString.replace(
-    /TECH_FACILITY_INCHARGE_NUMBER/g,
+    /TECH_INCHARGE_NUMBER/g,
     campusObj[campus].tech_facility_in_charge.number
   );
   htmlString = htmlString.replace(
@@ -77,9 +77,11 @@ async function main(
   receiverEmail,
   receiverName,
   campus,
+  langType,
   senderEmail,
   senderPassword
 ) {
+  console.log(senderEmail, senderPassword);
   var transporter = nodemailer.createTransport(
     smtpTransport({
       service: "gmail",
@@ -92,9 +94,9 @@ async function main(
   );
 
   var mailOptions = {
-    from: ` <${senderEmail}>`,
+    from: `Alisha Sadana <${senderEmail}>`,
     to: "",
-    subject: htmlSubject,
+    subject: `Welcome To NavGurukul : Admission Letter`,
     html: "",
     attachments: [],
   };
@@ -116,15 +118,29 @@ async function main(
       path: eachPath,
     });
   });
-  mailOptions.attachments.push({
-    fileName: `admission_Letter.pdf`,
-    path: path.join(
+  let offerLetterPDFPath = "";
+  if (langType === "both") {
+    offerLetterPDFPath = path.join(
       __dirname,
       "../images/offerLetter/pdf/admission_letter.pdf"
-    ),
+    );
+  } else if (langType === "onlyEnglish") {
+    offerLetterPDFPath = path.join(
+      __dirname,
+      "../images/offerLetter/pdf/admission_letter_only_english.pdf"
+    );
+  }
+  mailOptions.attachments.push({
+    fileName: `admission_Letter.pdf`,
+    path: offerLetterPDFPath,
   });
 
-  var htmlString = await readFile(__dirname + "/content.html");
+  let htmlString;
+  if (campus === "Pune") {
+    htmlString = await readFile(__dirname + "/emailContent/pune.html");
+  } else if (campus === "Bangalore") {
+    htmlString = await readFile(__dirname + "/emailContent/bangalore.html");
+  }
   mailOptions.html = getHTML(htmlString, receiverName, campus);
   mailOptions.to = receiverEmail + "<" + receiverEmail + ">";
 

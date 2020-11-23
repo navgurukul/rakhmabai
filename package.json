@@ -39,7 +39,7 @@
   },
   "nodemonConfig": {
     "ignore": [
-      "session.data.json"
+      "session.data.json", "images/"
     ]
   }
 }
