@@ -61,6 +61,11 @@ router.get("/clearUploads", (req, res) => {
   res.sendStatus(200);
 });
 
+router.get("/downloadSample", (req, res) => {
+  const file = path.join(__dirname, "../../images/samples/email.csv");
+  res.download(file);
+});
+
 router.post("/upload", upload.array("imgCollection", 6), (req, res, next) => {
   const reqFiles = [];
   const url = req.protocol + "://" + req.get("host");

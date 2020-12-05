@@ -10,7 +10,8 @@ async function main(
   htmlSubject,
   htmlBody,
   senderEmail,
-  senderPassword
+  senderPassword,
+  ccArr
 ) {
   var transporter = nodemailer.createTransport(
     smtpTransport({
@@ -29,6 +30,7 @@ async function main(
     subject: htmlSubject,
     html: "",
     attachments: [],
+    cc: [],
   };
 
   function getHTML(htmlString, name) {
@@ -58,6 +60,9 @@ async function main(
         path: eachPath,
       });
     });
+    if (ccArr.indexOf("@") >= 0) {
+      mailOptions.cc.push(ccArr);
+    }
     mailOptions.html = getHTML(htmlString, rows[i][0]);
     mailOptions.to = rows[i][0] + "<" + rows[i][1] + ">";
 

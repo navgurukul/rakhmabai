@@ -19,15 +19,18 @@ router.post("/sendEmail", async (req, res, next) => {
     langType,
     senderEmail,
     senderPassword,
+    cc,
   } = req.body;
-
+  let ccArray = [];
+  ccArray = cc.replace(" ", "").split(",");
   await main(
     receiverEmail,
     name,
     campus,
     langType,
     senderEmail,
-    senderPassword
+    senderPassword,
+    ccArray
   );
   res.sendStatus(200);
 });
