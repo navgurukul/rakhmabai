@@ -79,7 +79,8 @@ async function main(
   campus,
   langType,
   senderEmail,
-  senderPassword
+  senderPassword,
+  ccArr
 ) {
   console.log(senderEmail, senderPassword);
   var transporter = nodemailer.createTransport(
@@ -99,6 +100,7 @@ async function main(
     subject: `Welcome To NavGurukul : Admission Letter`,
     html: "",
     attachments: [],
+    cc: [],
   };
 
   const attachmentsDir = path.join(
@@ -143,6 +145,9 @@ async function main(
   }
   mailOptions.html = getHTML(htmlString, receiverName, campus);
   mailOptions.to = receiverEmail + "<" + receiverEmail + ">";
+  if (ccArr.indexOf("@") >= 0) {
+    mailOptions.cc.push(ccArr);
+  }
 
   await transporter.sendMail(mailOptions, function (err, info) {
     if (err) console.log(err);

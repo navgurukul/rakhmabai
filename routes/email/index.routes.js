@@ -80,14 +80,18 @@ router.post("/sendEmail", async (req, res, next) => {
   email =
     "<p>" + email.replace(/\n{2,}/g, "</p><p>").replace(/\n/g, "<br>") + "</p>";
   console.log(req.body);
+  let ccArray = [];
+  ccArray = req.body.cc.replace(" ", "").split(",");
   await main(
     allFiles.csv[0],
     allFiles.attachments,
     req.body.mailSubject,
     email,
     req.body.email,
-    req.body.password
+    req.body.password,
+    ccArray
   );
+
   // Object.keys(allFiles).forEach((key) => {
   //   allFiles[key].forEach((file) => {
   //     fs.unlinkSync(path.join(__dirname, "../../images/", file));
