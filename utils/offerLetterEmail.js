@@ -145,7 +145,7 @@ async function main(
   }
   mailOptions.html = getHTML(htmlString, receiverName, campus);
   mailOptions.to = receiverEmail + "<" + receiverEmail + ">";
-  if (ccArr.indexOf("@") >= 0) {
+  if (ccArr.length > 0) {
     mailOptions.cc.push(ccArr);
   }
 

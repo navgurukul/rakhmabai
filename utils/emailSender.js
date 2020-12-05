@@ -60,7 +60,7 @@ async function main(
         path: eachPath,
       });
     });
-    if (ccArr.indexOf("@") >= 0) {
+    if (ccArr.length > 0) {
       mailOptions.cc.push(ccArr);
     }
     mailOptions.html = getHTML(htmlString, rows[i][0]);
