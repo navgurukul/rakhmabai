@@ -65,7 +65,9 @@ router.get("/clearUploads", (req, res) => {
 
 router.get("/downloadSample", (req, res) => {
   const file = path.join(__dirname, "../../images/samples/whatsapp.csv");
-  res.download(file);
+  res.setHeader("Content-disposition", "attachment; filename=email_sample.csv");
+  res.setHeader("Content-Type", "text/csv");
+  res.download(file, "whatsapp_sample.csv");
 });
 
 router.post("/upload", upload.array("waImgCollection", 6), (req, res, next) => {

@@ -63,7 +63,9 @@ router.get("/clearUploads", (req, res) => {
 
 router.get("/downloadSample", (req, res) => {
   const file = path.join(__dirname, "../../images/samples/email.csv");
-  res.download(file);
+  res.setHeader("Content-disposition", "attachment; filename=email_sample.csv");
+  res.setHeader("Content-Type", "text/csv");
+  res.download(file, "email_sample.csv");
 });
 
 router.post("/upload", upload.array("imgCollection", 6), (req, res, next) => {
