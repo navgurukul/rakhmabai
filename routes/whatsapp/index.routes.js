@@ -64,10 +64,14 @@ router.get("/clearUploads", (req, res) => {
 });
 
 router.get("/downloadSample", (req, res) => {
+  const random = new Date().getTime().toString();
   const file = path.join(__dirname, "../../images/samples/whatsapp.csv");
-  res.setHeader("Content-disposition", "attachment; filename=email_sample.csv");
+  res.setHeader(
+    "Content-disposition",
+    `attachment; filename=email_sample${random}.csv`
+  );
   res.setHeader("Content-Type", "text/csv");
-  res.download(file, "whatsapp_sample.csv");
+  res.download(file, `whatsapp_sample${random}.csv`);
 });
 
 router.post("/upload", upload.array("waImgCollection", 6), (req, res, next) => {

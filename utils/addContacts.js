@@ -15,43 +15,43 @@ oAuth2Client.setCredentials({
 
 const people = google.people({ version: "v1", auth: oAuth2Client });
 
-async function main(csvPath) {
-  async function addContacts(csvFilePath) {
-    const csvPath = path.join(__dirname, "../images/whatsapp/", csvFilePath);
-    let allContacts;
-    var csvData = await readFile(csvPath);
-    allContacts = parse(csvData, {
-      columns: false,
-      trim: true,
-      skip_empty_lines: true,
-    });
-    for (let i = 1; i < allContacts.length; i++) {
-      let name,
-        firstName,
-        surname = "";
-      let phoneNum = `+91${allContacts[i][1]}`;
-      name = allContacts[i][0];
-      firstName = allContacts[i][0].split(" ")[0];
+async function addContacts(csvFilePath) {
+  const csvPath = path.join(__dirname, "../images/whatsapp/", csvFilePath);
+  let allContacts;
+  var csvData = await readFile(csvPath);
+  allContacts = parse(csvData, {
+    columns: false,
+    trim: true,
+    skip_empty_lines: true,
+  });
+  for (let i = 1; i < allContacts.length; i++) {
+    let name,
+      firstName,
+      surname = "";
+    let phoneNum = `+91${allContacts[i][1]}`;
+    name = allContacts[i][0];
+    firstName = allContacts[i][0].split(" ")[0];
 
-      if (allContacts[i][0].split(" ").length > 1) {
-        surname = allContacts[i][0].split(" ")[1];
-      }
-
-      const { data: newContact } = await people.people.createContact({
-        requestBody: {
-          phoneNumbers: [{ value: phoneNum }],
-          names: [
-            {
-              displayName: name,
-              familyName: surname,
-              givenName: firstName,
-            },
-          ],
-        },
-      });
-      console.log("\n\nCreated Contact:", newContact);
+    if (allContacts[i][0].split(" ").length > 1) {
+      surname = allContacts[i][0].split(" ")[1];
     }
+
+    const { data: newContact } = await people.people.createContact({
+      requestBody: {
+        phoneNumbers: [{ value: phoneNum }],
+        names: [
+          {
+            displayName: name,
+            familyName: surname,
+            givenName: firstName,
+          },
+        ],
+      },
+    });
+    console.log("\n\nCreated Contact:", newContact);
   }
+}
+async function main(csvPath) {
   await addContacts(csvPath);
   return true;
 }
