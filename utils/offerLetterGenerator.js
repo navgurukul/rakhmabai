@@ -57,7 +57,7 @@ async function olGenerator(username, given_date) {
     if (!fs.existsSync(docPath)) {
       fs.mkdirSync(docPath);
     }
-    fs.writeFileSync(path.resolve(docPath + fileName + ".docx"), buf);
+    // fs.writeFileSync(path.resolve(docPath + fileName + ".docx"), buf);
     convertHelper(new Uint8Array(buf), "exportPDF")
       .then((arrayBuffer) => {
         const pdfPath = path.join(__dirname, "../images/offerLetter/pdf/");
