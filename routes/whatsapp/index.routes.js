@@ -7,7 +7,7 @@ const router = express.Router();
 const { main } = require("../../utils/addContacts");
 const { waMain, createClient } = require("../../utils/whatsappMessageSender");
 
-const DIR = path.join(__dirname, "../../images/whatsapp");
+const DIR = path.join(__dirname, "../../assets/whatsapp");
 
 let allFiles = { attachments: [], csv: [] };
 let randomNum;
@@ -56,7 +56,7 @@ var upload = multer({
 router.get("/clearUploads", (req, res) => {
   Object.keys(allFiles).forEach((key) => {
     allFiles[key].forEach((file) => {
-      fs.unlinkSync(path.join(__dirname, "../../images/whatsapp", file));
+      fs.unlinkSync(path.join(__dirname, "../../assets/whatsapp", file));
     });
   });
   allFiles = { attachments: [], csv: [] };
@@ -65,7 +65,7 @@ router.get("/clearUploads", (req, res) => {
 
 router.get("/downloadSample", (req, res) => {
   const random = new Date().getTime().toString();
-  const file = path.join(__dirname, "../../images/samples/whatsapp.csv");
+  const file = path.join(__dirname, "../../assets/samples/whatsapp.csv");
   res.setHeader(
     "Content-disposition",
     `attachment; filename=email_sample${random}.csv`
@@ -78,9 +78,10 @@ router.post("/upload", upload.array("waImgCollection", 6), (req, res, next) => {
   const reqFiles = [];
   const url = req.protocol + "://" + req.get("host");
   for (var i = 0; i < req.files.length; i++) {
-    reqFiles.push(url + "/images/whatsapp" + req.files[i].filename);
+    reqFiles.push(url + "/assets/whatsapp" + req.files[i].filename);
   }
   res.sendStatus(200);
+  console.log("working whatsapp");
 });
 
 router.post("/addContacts", async (req, res, next) => {
@@ -111,7 +112,7 @@ router.post("/generateQR", async (req, res, next) => {
       res.end();
     }
   });
-  // const whatsappDir = path.join(__dirname, "../../images/whatsapp");
+  // const whatsappDir = path.join(__dirname, "../../assets/whatsapp");
   // if (fs.existsSync(whatsappDir)) {
   //   rimraf.sync(whatsappDir);
   // }
@@ -124,7 +125,7 @@ router.post("/sendMessage", async (req, res, next) => {
   await waMain(message, allFiles.csv[0], allFiles.attachments);
   // Object.keys(allFiles).forEach((key) => {
   //   allFiles[key].forEach((file) => {
-  //     fs.unlinkSync(path.join(__dirname, "../../images/whatsapp", file));
+  //     fs.unlinkSync(path.join(__dirname, "../../assets/whatsapp", file));
   //   });
   // });
 

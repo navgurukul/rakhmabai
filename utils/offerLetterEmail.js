@@ -105,14 +105,14 @@ async function main(
 
   const attachmentsDir = path.join(
     __dirname,
-    `../images/offerLetter/${campus}`
+    `../assets/offerLetter/${campus}`
   );
 
   const attachmentFiles = fs.readdirSync(attachmentsDir);
   attachmentFiles.forEach((file) => {
     const eachPath = path.join(
       __dirname,
-      `../images/offerLetter/${campus}/`,
+      `../assets/offerLetter/${campus}/`,
       file
     );
     mailOptions.attachments.push({
@@ -124,12 +124,12 @@ async function main(
   if (langType === "both") {
     offerLetterPDFPath = path.join(
       __dirname,
-      "../images/offerLetter/pdf/admission_letter.pdf"
+      "../assets/offerLetter/pdf/admission_letter.pdf"
     );
   } else if (langType === "onlyEnglish") {
     offerLetterPDFPath = path.join(
       __dirname,
-      "../images/offerLetter/pdf/admission_letter_only_english.pdf"
+      "../assets/offerLetter/pdf/admission_letter_only_english.pdf"
     );
   }
   mailOptions.attachments.push({

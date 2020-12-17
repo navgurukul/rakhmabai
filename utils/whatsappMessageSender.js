@@ -19,7 +19,7 @@ async function createClient(message, peopleCSV, imagesPath, cb) {
 
 async function start(client, message, peopleCSV, imagesPath) {
   console.log(peopleCSV, imagesPath, message);
-  const csvPath = path.join(__dirname, "../images/whatsapp/", peopleCSV);
+  const csvPath = path.join(__dirname, "../assets/whatsapp/", peopleCSV);
   let allContacts;
   var csvData = await readFile(csvPath);
   allContacts = parse(csvData, {
@@ -33,7 +33,7 @@ async function start(client, message, peopleCSV, imagesPath) {
 
     if (imagesPath.length > 0) {
       imagesPath.forEach((image) => {
-        const imagePath = path.join(__dirname, "../images/whatsapp", image);
+        const imagePath = path.join(__dirname, "../assets/whatsapp", image);
         const fileName = image;
         const caption = image;
         client.sendImage(number, imagePath, fileName, caption);
