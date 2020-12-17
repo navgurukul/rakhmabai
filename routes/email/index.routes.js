@@ -5,7 +5,7 @@ const path = require("path");
 const router = express.Router();
 const { main } = require("../../utils/emailSender");
 
-const DIR = path.join(__dirname, "../../images/");
+const DIR = path.join(__dirname, "../../assets/");
 
 let allFiles = { attachments: [], csv: [] };
 let randomNum;
@@ -54,7 +54,7 @@ var upload = multer({
 router.get("/clearUploads", (req, res) => {
   Object.keys(allFiles).forEach((key) => {
     allFiles[key].forEach((file) => {
-      fs.unlinkSync(path.join(__dirname, "../../images/", file));
+      fs.unlinkSync(path.join(__dirname, "../../assets/", file));
     });
   });
   allFiles = { attachments: [], csv: [] };
@@ -63,7 +63,7 @@ router.get("/clearUploads", (req, res) => {
 
 router.get("/downloadSample", (req, res) => {
   const random = new Date().getTime().toString();
-  const file = path.join(__dirname, "../../images/samples/email.csv");
+  const file = path.join(__dirname, "../../assets/samples/email.csv");
   res.setHeader(
     "Content-disposition",
     `attachment; filename=email_sample${random}.csv`
@@ -76,7 +76,7 @@ router.post("/upload", upload.array("imgCollection", 6), (req, res, next) => {
   const reqFiles = [];
   const url = req.protocol + "://" + req.get("host");
   for (var i = 0; i < req.files.length; i++) {
-    reqFiles.push(url + "/images/" + req.files[i].filename);
+    reqFiles.push(url + "/assets/" + req.files[i].filename);
   }
   res.sendStatus(200);
 });
@@ -100,7 +100,7 @@ router.post("/sendEmail", async (req, res, next) => {
 
   // Object.keys(allFiles).forEach((key) => {
   //   allFiles[key].forEach((file) => {
-  //     fs.unlinkSync(path.join(__dirname, "../../images/", file));
+  //     fs.unlinkSync(path.join(__dirname, "../../assets/", file));
   //   });
   // });
 

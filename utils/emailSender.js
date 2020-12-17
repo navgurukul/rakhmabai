@@ -41,7 +41,7 @@ async function main(
   var rows = [];
 
   async function sendEmails() {
-    var fileData = await readFile(path.join(__dirname, "../images", csvFile));
+    var fileData = await readFile(path.join(__dirname, "../assets", csvFile));
     rows = parse(fileData, {
       columns: false,
       trim: true,
@@ -54,7 +54,7 @@ async function main(
 
   async function send_email(rows, i, htmlString) {
     attachmentsFile.forEach((file) => {
-      let eachPath = path.join(__dirname, "../images/", file);
+      let eachPath = path.join(__dirname, "../assets/", file);
       mailOptions.attachments.push({
         filename: file,
         path: eachPath,

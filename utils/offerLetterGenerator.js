@@ -52,7 +52,7 @@ async function olGenerator(username, given_date) {
     }
 
     var buf = doc.getZip().generate({ type: "nodebuffer" });
-    const docPath = path.join(__dirname, "../images/offerLetter/docs/");
+    const docPath = path.join(__dirname, "../assets/offerLetter/docs/");
 
     if (!fs.existsSync(docPath)) {
       fs.mkdirSync(docPath);
@@ -60,7 +60,7 @@ async function olGenerator(username, given_date) {
     // fs.writeFileSync(path.resolve(docPath + fileName + ".docx"), buf);
     convertHelper(new Uint8Array(buf), "exportPDF")
       .then((arrayBuffer) => {
-        const pdfPath = path.join(__dirname, "../images/offerLetter/pdf/");
+        const pdfPath = path.join(__dirname, "../assets/offerLetter/pdf/");
         if (!fs.existsSync(pdfPath)) {
           fs.mkdirSync(pdfPath);
         }

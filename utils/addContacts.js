@@ -16,7 +16,7 @@ oAuth2Client.setCredentials({
 const people = google.people({ version: "v1", auth: oAuth2Client });
 
 async function addContacts(csvFilePath) {
-  const csvPath = path.join(__dirname, "../images/whatsapp/", csvFilePath);
+  const csvPath = path.join(__dirname, "../assets/whatsapp/", csvFilePath);
   let allContacts;
   var csvData = await readFile(csvPath);
   allContacts = parse(csvData, {
