@@ -13,6 +13,7 @@ router.post("/generateCertificate", async (req, res, next) => {
 });
 router.post("/sendEmail", async (req, res, next) => {
   const {
+    senderName,
     receiverEmail,
     name,
     campus,
@@ -24,6 +25,7 @@ router.post("/sendEmail", async (req, res, next) => {
   let ccArray = [];
   ccArray = cc.replace(" ", "").split(",");
   await main(
+    senderName,
     receiverEmail,
     name,
     campus,
