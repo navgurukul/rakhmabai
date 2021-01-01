@@ -7,8 +7,8 @@ const { main } = require("../../utils/offerLetterEmail");
 const { olGenerator } = require("../../utils/offerLetterGenerator");
 
 router.post("/generateCertificate", async (req, res, next) => {
-  const { name, date } = req.body;
-  await olGenerator(name, date);
+  const { name, date, campus } = req.body;
+  await olGenerator(name, date, campus);
   res.sendStatus(200);
 });
 router.post("/sendEmail", async (req, res, next) => {

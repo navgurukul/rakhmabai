@@ -23,7 +23,7 @@ docx
     console.error(e);
   });
 
-async function olGenerator(username, given_date) {
+async function olGenerator(username, given_date, campus) {
   async function convertHelper(document, exportFct) {
     const api = await docx.engine();
     await api.load(document);
@@ -32,7 +32,7 @@ async function olGenerator(username, given_date) {
     return arrayBuffer;
   }
 
-  async function getCertificates(doc, username, given_date, fileName) {
+  async function getCertificates(doc, username, given_date, fileName, campus) {
     doc.setData({
       USERNAME: username,
       DATED: given_date,
@@ -79,9 +79,10 @@ async function olGenerator(username, given_date) {
 
   for (var i = 0; i < fileNames.length; i++) {
     var fName = fileNames[i];
+    var campusName = campus + "/" + fName;
 
     //Load the docx file as a binary
-    const templatePath = path.join(__dirname, "../document_templates/", fName);
+    const templatePath = path.join(__dirname, "../document_templates/", campusName);
     var content = fs.readFileSync(templatePath, "binary");
 
     var zip = new PizZip(content);
@@ -90,7 +91,7 @@ async function olGenerator(username, given_date) {
     doc.loadZip(zip);
 
     doc.setOptions({ linebreaks: true });
-    getCertificates(doc, username, given_date, fName.split(".")[0]);
+    getCertificates(doc, username, given_date, fName.split(".")[0], campus);
   }
 }
 
