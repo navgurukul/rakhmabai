@@ -4,7 +4,7 @@ const { readFile } = require("./fileHandler");
 const path = require("path");
 const fs = require("fs");
 
-function getHTML(htmlString, receiverName, campus) {
+function getHTML(htmlString, senderName, receiverName, campus) {
   const campusObj = {
     Pune: {
       whatsapp_chat_link: "https://chat.whatsapp.com/BWIFHhgIpxXDKDRdNQEv6E",
@@ -38,8 +38,23 @@ function getHTML(htmlString, receiverName, campus) {
         link: "https://maps.app.goo.gl/aoYyN",
       },
     },
-    Dharamshala: {},
+    Dharamshala: {
+      facility_in_charge: {
+        name: "Me",
+        number: "+91-9354978726",
+      },
+      tech_facility_in_charge: {
+        name: "",
+        number: "",
+      },
+      location: {
+        address:
+          "Ward number 202, Sukkhad (Garh, Dharamshala, Himachal Pradesh 176057)",
+        link: "https://goo.gl/maps/dyvEyYt8V1jtDD1L8",
+      },
+    },
   };
+  htmlString = htmlString.replace(/SENDERNAME/g, senderName);
   htmlString = htmlString.replace(/USERNAME/g, receiverName);
   htmlString = htmlString.replace(/CAMPUS_OPTION/g, campus);
   htmlString = htmlString.replace(
@@ -74,6 +89,7 @@ function getHTML(htmlString, receiverName, campus) {
 }
 
 async function main(
+  senderName,
   receiverEmail,
   receiverName,
   campus,
@@ -82,7 +98,7 @@ async function main(
   senderPassword,
   ccArr
 ) {
-  console.log(senderEmail, senderPassword);
+  console.log(senderName, senderEmail, senderPassword);
   var transporter = nodemailer.createTransport(
     smtpTransport({
       service: "gmail",
@@ -95,7 +111,7 @@ async function main(
   );
 
   var mailOptions = {
-    from: `Alisha Sadana <${senderEmail}>`,
+    from: `${senderName} <${senderEmail}>`,
     to: "",
     subject: `Welcome To NavGurukul : Admission Letter`,
     html: "",
@@ -142,8 +158,10 @@ async function main(
     htmlString = await readFile(__dirname + "/emailContent/pune.html");
   } else if (campus === "Bangalore") {
     htmlString = await readFile(__dirname + "/emailContent/bangalore.html");
+  } else if (campus === "Dharamshala") {
+    htmlString = await readFile(__dirname + "/emailContent/dharamshala.html");
   }
-  mailOptions.html = getHTML(htmlString, receiverName, campus);
+  mailOptions.html = getHTML(htmlString, senderName, receiverName, campus);
   mailOptions.to = receiverEmail + "<" + receiverEmail + ">";
   if (ccArr.length > 0) {
     mailOptions.cc.push(ccArr);
