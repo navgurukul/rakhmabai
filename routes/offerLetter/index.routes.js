@@ -1,6 +1,7 @@
 const express = require("express");
 const fs = require("fs");
 const path = require("path");
+const fsExtra = require('fs-extra');
 
 const router = express.Router();
 const { main } = require("../../utils/offerLetterEmail");
@@ -34,6 +35,8 @@ router.post("/sendEmail", async (req, res, next) => {
     senderPassword,
     ccArray
   );
+  const pdfPath = path.join(__dirname, "../../assets/offerLetter/pdf/");
+  await fsExtra.emptyDirSync(pdfPath);
   res.sendStatus(200);
 });
 

@@ -8,13 +8,13 @@ function getHTML(htmlString, senderName, receiverName, campus) {
   const campusObj = {
     Pune: {
       whatsapp_chat_link: "https://chat.whatsapp.com/BWIFHhgIpxXDKDRdNQEv6E",
-      facility_in_charge: {
-        name: "Nitesh",
-        number: "+91-8962158723",
+      program_manager: {
+        name: "Cheshta Sharma",
+        number: "+91-9829331810",
       },
       tech_facility_in_charge: {
-        name: "Komal",
-        number: "+91-7302629612",
+        name: "Shahnaaz",
+        number: "+91-97317 39220",
       },
       location: {
         address:
@@ -24,9 +24,9 @@ function getHTML(htmlString, senderName, receiverName, campus) {
     },
     Bangalore: {
       whatsapp_chat_link: "https://chat.whatsapp.com/GedtCO1sM2MBfIUGFvB5RU",
-      facility_in_charge: {
-        name: "Me",
-        number: "+91-8971263283",
+      program_manager: {
+        name: "Kittiy",
+        number: "+91-8097109453",
       },
       tech_facility_in_charge: {
         name: "Shweta",
@@ -39,7 +39,7 @@ function getHTML(htmlString, senderName, receiverName, campus) {
       },
     },
     Dharamshala: {
-      facility_in_charge: {
+      program_manager: {
         name: "Me",
         number: "+91-9354978726",
       },
@@ -63,11 +63,11 @@ function getHTML(htmlString, senderName, receiverName, campus) {
   );
   htmlString = htmlString.replace(
     /CAMPUS_FACILITY_INCHARGE/g,
-    campusObj[campus].facility_in_charge.name
+    campusObj[campus].program_manager.name
   );
   htmlString = htmlString.replace(
     /CAMPUS_INCHARGE_NUMBER/g,
-    campusObj[campus].facility_in_charge.number
+    campusObj[campus].program_manager.number
   );
   htmlString = htmlString.replace(
     /TECH_FACILITY_INCHARGE/g,
