@@ -47,9 +47,10 @@ async function main(
       trim: true,
       skip_empty_lines: true,
     });
-    send_email(rows, 1, htmlBody);
+    const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,3}$/;
+    const validatedEmails = rows.filter((item) => emailPattern.test(item[1]));
+    send_email(validatedEmails, 0, htmlBody);
   }
-
   sendEmails();
 
   async function send_email(rows, i, htmlString) {
