@@ -5,7 +5,96 @@ const path = require("path");
 const fs = require("fs");
 const Queue = require('bull');
 
+const mailQueue = new Queue('sendMail');
+
+// Bull Queue
+mailQueue.process( async(job, done) => { 
+  const details = job.data;
+  console.log(details, "details");
+  var mailOptions = {
+    from: `${details.senderName} <${details.senderEmail}>`,
+    to: "",
+    subject: `Welcome To NavGurukul : Admission Letter`,
+    html: "",
+    attachments: [],
+    cc: [],
+  };
+
+  var transporter = nodemailer.createTransport(
+    smtpTransport({
+      service: "gmail",
+      host: "smtp.gmail.com",
+      auth: {
+        user: details.senderEmail,
+        pass: details.senderPassword,
+      },
+    })
+  );
+  await htmlContent(mailOptions, details.senderName, details.receiverName, details.receiverEmail, details.campus, details.ccArr, details.langType);
+  transporter.sendMail(mailOptions, (err, info) => {
+      if (err) {
+          done(err);
+      } else {
+          console.log(info, "info\n\n\n");
+          done(null,info);
+      }
+  });
+});
+
+async function htmlContent(mailOptions,senderName, receiverName, receiverEmail, campus, ccArr, langType) {
+  // console.log(mailOptions, senderName, receiverName, campus, "htmlContent");
+  const attachmentsDir = path.join(
+    __dirname,
+    `../assets/offerLetter/${campus}`
+  );
+
+  const attachmentFiles = fs.readdirSync(attachmentsDir);
+  attachmentFiles.forEach((file) => {
+    const eachPath = path.join(
+      __dirname,
+      `../assets/offerLetter/${campus}/`,
+      file
+    );
+    mailOptions.attachments.push({
+      fileName: file,
+      path: eachPath,
+    });
+  });
+  let offerLetterPDFPath = "";
+  if (langType === "both") {
+    offerLetterPDFPath = path.join(
+      __dirname,
+      "../assets/offerLetter/pdf/admission_letter.pdf"
+    );
+  } else if (langType === "onlyEnglish") {
+    offerLetterPDFPath = path.join(
+      __dirname,
+      "../assets/offerLetter/pdf/admission_letter_only_english.pdf"
+    );
+  }
+  mailOptions.attachments.push({
+    fileName: `admission_Letter.pdf`,
+    path: offerLetterPDFPath,
+  });
+
+  let htmlString;
+  if (campus === "Pune") {
+    htmlString = await readFile(__dirname + "/emailContent/pune.html");
+  } else if (campus === "Bangalore") {
+    htmlString = await readFile(__dirname + "/emailContent/bangalore.html");
+  } else if (campus === "Dharamshala") {
+    htmlString = await readFile(__dirname + "/emailContent/dharamshala.html");
+  }
+  mailOptions.html = getHTML(htmlString, senderName, receiverName, campus);
+  mailOptions.to = receiverEmail + "<" + receiverEmail + ">";
+  if (ccArr.length > 0) {
+    mailOptions.cc.push(ccArr);
+  }
+  return htmlString;
+}
+
 function getHTML(htmlString, senderName, receiverName, campus) {
+  // console.log(htmlString, "htmlString");
   const campusObj = {
     Pune: {
       whatsapp_chat_link: "https://chat.whatsapp.com/BWIFHhgIpxXDKDRdNQEv6E",
@@ -89,15 +178,7 @@ function getHTML(htmlString, senderName, receiverName, campus) {
   return htmlString;
 }
 
-// const redis = require('redis');
-// const config = {
-//     host: '127.0.0.1',
-//     port: 6379,
-//   };
-  
-// const client = redis.createClient(config);
-
-async function main(
+function main(
   senderName,
   receiverEmail,
   receiverName,
@@ -109,114 +190,17 @@ async function main(
 ) {
   console.log(senderName, senderEmail, senderPassword);
 
-  const sendMailQueue = new Queue('sendMail');
-  async function addUserToQueue(emailData) {
-      console.log(emailData, "emailData");
-      sendMailQueue.add(emailData);
-      return sendMailQueue;
+  const emailData = {
+    senderName,
+    receiverEmail,
+    receiverName,
+    campus,
+    langType,
+    senderEmail,
+    senderPassword,
+    ccArr
   }
-
-  const emailData = {senderName,receiverEmail,receiverName,campus,langType,senderEmail,senderPassword,ccArr}
-  const userData = await addUserToQueue(emailData);
-
-  // Consumer
-  userData.process(async job => {
-    console.log(job.data, "job.data", job.id, "job.id"); 
-    return await sendMail(job.data);  
-  });
-
-  function sendMail(details) {
-
-    var transporter = nodemailer.createTransport(
-      smtpTransport({
-        service: "gmail",
-        host: "smtp.gmail.com",
-        auth: {
-          user: details.senderEmail,
-          pass: details.senderPassword,
-        },
-      })
-    );
-  
-    var mailOptions = {
-      from: `${details.senderName} <${details.senderEmail}>`,
-      to: "",
-      subject: `Welcome To NavGurukul : Admission Letter`,
-      html: "",
-      attachments: [],
-      cc: [],
-    };
-  
-    const attachmentsDir = path.join(
-      __dirname,
-      `../assets/offerLetter/${details.campus}`
-    );
-  
-    const attachmentFiles = fs.readdirSync(attachmentsDir);
-    attachmentFiles.forEach((file) => {
-      const eachPath = path.join(
-        __dirname,
-        `../assets/offerLetter/${details.campus}/`,
-        file
-      );
-      mailOptions.attachments.push({
-        fileName: file,
-        path: eachPath,
-      });
-    });
-    let offerLetterPDFPath = "";
-    if (langType === "both") {
-      offerLetterPDFPath = path.join(
-        __dirname,
-        "../assets/offerLetter/pdf/admission_letter.pdf"
-      );
-    } else if (langType === "onlyEnglish") {
-      offerLetterPDFPath = path.join(
-        __dirname,
-        "../assets/offerLetter/pdf/admission_letter_only_english.pdf"
-      );
-    }
-    mailOptions.attachments.push({
-      fileName: `admission_Letter.pdf`,
-      path: offerLetterPDFPath,
-    });
-  
-    let htmlString;
-    if (details.campus === "Pune") {
-      htmlString = readFile(__dirname + "/emailContent/pune.html"); // await removed
-    } else if (details.campus === "Bangalore") {
-      htmlString = readFile(__dirname + "/emailContent/bangalore.html"); // await removed
-    } else if (details.campus === "Dharamshala") {
-      htmlString = readFile(__dirname + "/emailContent/dharamshala.html"); // await removed
-    }
-    mailOptions.html = getHTML(htmlString, details.senderName, details.receiverName, details.campus);
-    mailOptions.to = details.receiverEmail + "<" + details.receiverEmail + ">";
-    if (details.ccArr.length > 0) {
-      mailOptions.cc.push(details.ccArr);
-    }
-  
-    // await transporter.sendMail(mailOptions, function (err, info) {
-    //   if (err) console.log(err);
-    //   else {
-    //     console.log(info);
-    //     console.log(`Sent to ${receiverName} ${receiverEmail}`);
-    //   }
-    // });
-
-    return new Promise((resolve, reject) => {
-      transporter.sendMail(mailOptions, (err, info) => {
-          // setTimeout(() => {console.log("2 sec ho gye")}, 2000);
-          if (err) {
-              reject(err);
-          } else {
-              console.log(info, "info\n\n\n\n");
-              resolve(info);
-          }
-      });
-    });
-  }
-
-  
+  mailQueue.add(emailData);
 }
 
 module.exports = { main };

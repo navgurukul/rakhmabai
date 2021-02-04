@@ -12,7 +12,7 @@ router.post("/generateCertificate", async (req, res, next) => {
   await olGenerator(name, date, campus);
   res.sendStatus(200);
 });
-router.post("/sendEmail", async (req, res, next) => {
+router.post("/sendEmail", (req, res, next) => {
   const {
     senderName,
     receiverEmail,
@@ -25,7 +25,7 @@ router.post("/sendEmail", async (req, res, next) => {
   } = req.body;
   let ccArray = [];
   ccArray = cc.replace(" ", "").split(",");
-  await main(
+  main(
     senderName,
     receiverEmail,
     name,
@@ -36,7 +36,7 @@ router.post("/sendEmail", async (req, res, next) => {
     ccArray
   );
   const pdfPath = path.join(__dirname, "../../assets/offerLetter/pdf/");
-  await fsExtra.emptyDirSync(pdfPath);
+  fsExtra.emptyDirSync(pdfPath);
   res.sendStatus(200);
 });
 
