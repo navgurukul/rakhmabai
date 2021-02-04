@@ -81,7 +81,6 @@ router.post("/upload", upload.array("waImgCollection", 6), (req, res, next) => {
     reqFiles.push(url + "/assets/whatsapp" + req.files[i].filename);
   }
   res.sendStatus(200);
-  console.log("working whatsapp");
 });
 
 router.post("/addContacts", async (req, res, next) => {
