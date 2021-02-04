@@ -7,7 +7,6 @@ const Queue = require('bull');
 
 const mailQueue = new Queue('sendMail');
 
-// Bull Queue
 mailQueue.process( async(job, done) => { 
   const details = job.data;
   console.log(details, "details");
@@ -30,29 +29,17 @@ mailQueue.process( async(job, done) => {
       },
     })
   );
-  await htmlContent(mailOptions, details.senderName, details.receiverName, details.receiverEmail, details.campus, details.ccArr, details.langType);
-  transporter.sendMail(mailOptions, (err, info) => {
-      if (err) {
-          done(err);
-      } else {
-          console.log(info, "info\n\n\n");
-          done(null,info);
-      }
-  });
-});
 
-async function htmlContent(mailOptions,senderName, receiverName, receiverEmail, campus, ccArr, langType) {
-  // console.log(mailOptions, senderName, receiverName, campus, "htmlContent");
   const attachmentsDir = path.join(
     __dirname,
-    `../assets/offerLetter/${campus}`
+    `../assets/offerLetter/${details.campus}`
   );
 
   const attachmentFiles = fs.readdirSync(attachmentsDir);
   attachmentFiles.forEach((file) => {
     const eachPath = path.join(
       __dirname,
-      `../assets/offerLetter/${campus}/`,
+      `../assets/offerLetter/${details.campus}/`,
       file
     );
     mailOptions.attachments.push({
@@ -61,12 +48,12 @@ async function htmlContent(mailOptions,senderName, receiverName, receiverEmail, 
     });
   });
   let offerLetterPDFPath = "";
-  if (langType === "both") {
+  if (details.langType === "both") {
     offerLetterPDFPath = path.join(
       __dirname,
       "../assets/offerLetter/pdf/admission_letter.pdf"
     );
-  } else if (langType === "onlyEnglish") {
+  } else if (details.langType === "onlyEnglish") {
     offerLetterPDFPath = path.join(
       __dirname,
       "../assets/offerLetter/pdf/admission_letter_only_english.pdf"
@@ -78,23 +65,30 @@ async function htmlContent(mailOptions,senderName, receiverName, receiverEmail, 
   });
 
   let htmlString;
-  if (campus === "Pune") {
+  if (details.campus === "Pune") {
     htmlString = await readFile(__dirname + "/emailContent/pune.html");
-  } else if (campus === "Bangalore") {
+  } else if (details.campus === "Bangalore") {
     htmlString = await readFile(__dirname + "/emailContent/bangalore.html");
-  } else if (campus === "Dharamshala") {
+  } else if (details.campus === "Dharamshala") {
     htmlString = await readFile(__dirname + "/emailContent/dharamshala.html");
   }
-  mailOptions.html = getHTML(htmlString, senderName, receiverName, campus);
-  mailOptions.to = receiverEmail + "<" + receiverEmail + ">";
-  if (ccArr.length > 0) {
-    mailOptions.cc.push(ccArr);
+  mailOptions.html = getHTML(htmlString, details.senderName, details.receiverName, details.campus);
+  // console.log(mailOptions.html, "mailOptions.html");
+  mailOptions.to = details.receiverEmail + "<" + details.receiverEmail + ">";
+  if (details.ccArr.length > 0) {
+    mailOptions.cc.push(details.ccArr);
   }
-  return htmlString;
-}
+
+  await transporter.sendMail(mailOptions, (err, info) => {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log(info, "info\n\n\n");
+    }
+  });
+});
 
 function getHTML(htmlString, senderName, receiverName, campus) {
-  // console.log(htmlString, "htmlString");
   const campusObj = {
     Pune: {
       whatsapp_chat_link: "https://chat.whatsapp.com/BWIFHhgIpxXDKDRdNQEv6E",
