@@ -34,8 +34,7 @@ async function start(client, message, peopleCSV, imagesPath) {
       imagesPath.forEach((image) => {
         const imagePath = path.join(__dirname, "../assets/whatsapp", image);
         const fileName = image;
-        const caption = image;
-        client.sendImage(number, imagePath, fileName, caption);
+        client.sendImage(number, imagePath, fileName);
       });
     }
   }
