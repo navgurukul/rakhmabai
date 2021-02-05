@@ -86,7 +86,6 @@ router.post("/upload", upload.array("waImgCollection", 6), (req, res, next) => {
 router.post("/addContacts", async (req, res, next) => {
   await main(allFiles.csv[0]);
   console.log("processing done");
-  allFiles = { attachments: [], csv: [] };
 
   res.sendStatus(200);
 });
@@ -120,7 +119,7 @@ router.post("/generateQR", async (req, res, next) => {
 
 router.post("/sendMessage", async (req, res, next) => {
   let message = req.body.message;
-  console.log(allFiles.csv[0]);
+
   await waMain(message, allFiles.csv[0], allFiles.attachments);
   // Object.keys(allFiles).forEach((key) => {
   //   allFiles[key].forEach((file) => {

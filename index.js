@@ -18,5 +18,5 @@ app.use("/offerLetter", offerLetterApi);
 
 const port = process.env.PORT || 9000;
 app.listen(port, () => {
-  console.log("Connected to port " + port);
+  console.log("Check out the action at " + `http://localhost:${port}/`);
 });

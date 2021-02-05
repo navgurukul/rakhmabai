@@ -18,7 +18,6 @@ async function createClient(message, peopleCSV, imagesPath, cb) {
 }
 
 async function start(client, message, peopleCSV, imagesPath) {
-  console.log(peopleCSV, imagesPath, message);
   const csvPath = path.join(__dirname, "../assets/whatsapp/", peopleCSV);
   let allContacts;
   var csvData = await readFile(csvPath);
