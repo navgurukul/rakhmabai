@@ -117,8 +117,8 @@ router.post("/generateQR", async (req, res, next) => {
   // }
   // fs.mkdirSync(whatsappDir);
 
-  const pdfPath = path.join(__dirname, "../../assets/whatsapp/");
-  await fsExtra.emptyDirSync(pdfPath);
+  // const pdfPath = path.join(__dirname, "../../assets/whatsapp/");
+  // await fsExtra.emptyDirSync(pdfPath);
   res.sendStatus(200);
 });
 
