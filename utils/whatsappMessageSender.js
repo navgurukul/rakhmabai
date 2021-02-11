@@ -14,7 +14,7 @@ async function createClient(message, peopleCSV, imagesPath, cb) {
   ev.on("qr.**", (data) => {
     cb(data);
   });
-  return;
+  return({"success": true});
 }
 
 async function start(client, message, peopleCSV, imagesPath) {
