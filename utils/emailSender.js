@@ -3,6 +3,7 @@ var smtpTransport = require("nodemailer-smtp-transport");
 const parse = require("csv-parse/lib/sync");
 const { readFile } = require("./fileHandler");
 const path = require("path");
+const _ = require('lodash');
 
 async function main(
   csvFile,
@@ -41,7 +42,7 @@ async function main(
   var rows = [];
 
   async function sendEmails() {
-    var fileData = await readFile(path.join(__dirname, "../assets", csvFile));
+    var fileData = await readFile(path.join(__dirname, "../assets/email", csvFile));
     rows = parse(fileData, {
       columns: false,
       trim: true,
@@ -49,13 +50,27 @@ async function main(
     });
     const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,3}$/;
     const validatedEmails = rows.filter((item) => emailPattern.test(item[1]));
-    send_email(validatedEmails, 0, htmlBody);
+    // await send_email(validatedEmails, 0, htmlBody);
+    return validatedEmails;
   }
-  sendEmails();
 
-  async function send_email(rows, i, htmlString) {
+  async function getPromises() {
+    const promises = [];
+    const getValidatedEmails = await sendEmails();
+    if (getValidatedEmails.length) {
+      _.map(getValidatedEmails, (data) => {
+        promises.push(send_email(data, htmlBody));
+      })
+      await Promise.all(promises);
+      // console.log(await Promise.all(promises), "await Promise.all(promises);");
+      return({"success": true});
+    }
+    return false;
+  }
+
+  async function send_email(mailId, htmlString) {
     attachmentsFile.forEach((file) => {
-      let eachPath = path.join(__dirname, "../assets/", file);
+      let eachPath = path.join(__dirname, "../assets/email", file);
       mailOptions.attachments.push({
         filename: file,
         path: eachPath,
@@ -64,24 +79,19 @@ async function main(
     if (ccArr.length > 0) {
       mailOptions.cc.push(ccArr);
     }
-    mailOptions.html = getHTML(htmlString, rows[i][0]);
-    mailOptions.to = rows[i][0] + "<" + rows[i][1] + ">";
+    mailOptions.html = await getHTML(htmlString, mailId[0]);
+    mailOptions.to = mailId[0] + "<" + mailId[1] + ">";
 
-    await transporter.sendMail(mailOptions, function (err, info) {
-      if (err) console.log(err);
-      else {
-        console.log(info);
-        console.log("Sent", i + 1, "emails. Next index: ", i + 1);
-
-        if (i < rows.length - 1) {
-          setTimeout(
-            () => send_email(rows, i + 1, htmlString),
-            Math.random() * 1000
-          );
-        }
-      }
-    });
+    return await transporter.sendMail(mailOptions)
+      .then((res) => {
+        console.log(res,"res/n/n");
+        return true;
+      }).catch((err) => {
+        console.log(err);
+        return false;
+      })
   }
+  return await getPromises();
 }
 
 module.exports = { main };

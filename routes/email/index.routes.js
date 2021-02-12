@@ -1,11 +1,12 @@
 const express = require("express");
 const multer = require("multer");
 const fs = require("fs");
+const _ = require('lodash');
 const path = require("path");
 const router = express.Router();
 const { main } = require("../../utils/emailSender");
 
-const DIR = path.join(__dirname, "../../assets/");
+const DIR = path.join(__dirname, "../../assets/email");
 
 let allFiles = { attachments: [], csv: [] };
 let randomNum;
@@ -54,7 +55,7 @@ var upload = multer({
 router.get("/clearUploads", (req, res) => {
   Object.keys(allFiles).forEach((key) => {
     allFiles[key].forEach((file) => {
-      fs.unlinkSync(path.join(__dirname, "../../assets/", file));
+      fs.unlinkSync(path.join(__dirname, "../../assets/email", file));
     });
   });
   allFiles = { attachments: [], csv: [] };
@@ -76,7 +77,7 @@ router.post("/upload", upload.array("imgCollection", 6), (req, res, next) => {
   const reqFiles = [];
   const url = req.protocol + "://" + req.get("host");
   for (var i = 0; i < req.files.length; i++) {
-    reqFiles.push(url + "/assets/" + req.files[i].filename);
+    reqFiles.push(url + "/assets/email" + req.files[i].filename);
   }
   res.sendStatus(200);
 });
@@ -104,6 +105,12 @@ router.post("/sendEmail", async (req, res, next) => {
   //   });
   // });
 
+  Object.keys(allFiles).forEach((key) => {
+    _.map(allFiles[key], async(file) => {
+      await fs.unlinkSync(path.join(__dirname, "../../assets/email", file));
+    })
+  });
+  
   allFiles = { attachments: [], csv: [] };
   res.sendStatus(200);
 });
