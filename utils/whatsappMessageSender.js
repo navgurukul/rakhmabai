@@ -12,6 +12,7 @@ async function waMain(message, peopleCSV, imagesPath) {
 async function createClient(message, peopleCSV, imagesPath, cb) {
   wa.create().then((client) => start(client, message, peopleCSV, imagesPath));
   ev.on("qr.**", (data) => {
+    console.log(data);
     cb(data);
   });
   return;
