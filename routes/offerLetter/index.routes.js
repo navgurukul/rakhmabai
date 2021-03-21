@@ -40,7 +40,7 @@ router.post("/sendEmail", async (req, res, next) => {
   res.sendStatus(200);
 });
 
-router.post("/admissions/offerLetter", async (req, res, next) => {
+router.post("/admissions", async (req, res, next) => {
   const date = `${new Date().getDate()} - ${new Date().getMonth() + 1}`;
 
   const {
@@ -57,7 +57,7 @@ router.post("/admissions/offerLetter", async (req, res, next) => {
   await olGenerator(name, date, campus);
 
   let ccArray = [];
-  ccArray = cc.replace(" ", "").split(",");
+  ccArray = cc.split(",");
   await main(
     senderName,
     receiverEmail,
