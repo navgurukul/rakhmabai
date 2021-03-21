@@ -87,7 +87,6 @@ router.post("/upload", upload.array("waImgCollection", 6), (req, res, next) => {
 router.post("/addContacts", async (req, res, next) => {
   await main(allFiles.csv[0]);
   console.log("processing done");
-
   res.sendStatus(200);
 });
 
