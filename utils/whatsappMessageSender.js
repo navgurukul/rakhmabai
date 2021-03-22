@@ -29,8 +29,9 @@ async function start(client, message, peopleCSV, imagesPath) {
   });
   for (let i = 1; i < allContacts.length; i++) {
     const number = `91${allContacts[i][1]}@c.us`;
-    client.sendText(number, message);
-
+    setTimeout(() => {
+      client.sendText(number, message);
+    }, Math.ceil(Math.random() * (5 - 1) + 1));
     if (imagesPath.length > 0) {
       imagesPath.forEach((image) => {
         const imagePath = path.join(__dirname, "../assets/whatsapp", image);
