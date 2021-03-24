@@ -38,6 +38,22 @@ function getHTML(htmlString, senderName, receiverName, campus) {
         link: "https://maps.app.goo.gl/aoYyN",
       },
     },
+    Sarjapura: {
+      whatsapp_chat_link: "https://chat.whatsapp.com/GedtCO1sM2MBfIUGFvB5RU",
+      program_manager: {
+        name: "Kittiy",
+        number: "+91-8097109453",
+      },
+      tech_facility_in_charge: {
+        name: "V.kumar nayak",
+        number: "+91-9492116836",
+      },
+      location: {
+        address:
+          "45/1, 45/2, Avalahalli Huskur Panchayath, Sarjapura Hobli, Anekal Taluk Dist, Majra Ahir, Bengaluru, Karnataka 560099",
+        link: "https://maps.app.goo.gl/aoYyN",
+      },
+    },
     Dharamshala: {
       program_manager: {
         name: "Me",
@@ -158,6 +174,8 @@ async function main(
     htmlString = await readFile(__dirname + "/emailContent/pune.html");
   } else if (campus === "Bangalore") {
     htmlString = await readFile(__dirname + "/emailContent/bangalore.html");
+  } else if (campus === "Sarjapura") {
+    htmlString = await readFile(__dirname + "/emailContent/sarjapura.html");
   } else if (campus === "Dharamshala") {
     htmlString = await readFile(__dirname + "/emailContent/dharamshala.html");
   }
