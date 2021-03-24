@@ -41,36 +41,48 @@ router.post("/sendEmail", async (req, res, next) => {
 });
 
 router.post("/admissions", async (req, res, next) => {
-  const date = `${new Date().getDate()} - ${new Date().getMonth() + 1}`;
+  const date = `${new Date().getDate()}-${
+    new Date().getMonth() + 1
+  }-${new Date().getFullYear()}`;
 
-  const {
-    senderName,
-    receiverEmail,
-    name,
-    campus,
-    langType,
-    senderEmail,
-    senderPassword,
-    cc,
-  } = req.body;
+  const [senderEmail, senderPassword, langType] = [
+    "campus@navgurukul.org",
+    "Outreachng@2",
+    "both",
+  ];
+
+  const { receiverEmail, name, campus, cc } = req.body;
+
+  const fachaName = {
+    Dharamshala: "Rahit",
+    Pune: "Nilam",
+    Bangalore: "Nilam",
+    Sarjapura: "Nilam",
+  };
+
+  const senderName = fachaName[campus];
 
   await olGenerator(name, date, campus);
 
   let ccArray = [];
   ccArray = cc.split(",");
-  await main(
-    senderName,
-    receiverEmail,
-    name,
-    campus,
-    langType,
-    senderEmail,
-    senderPassword,
-    ccArray
-  );
-  const pdfPath = path.join(__dirname, "../../assets/offerLetter/pdf/");
-  await fsExtra.emptyDirSync(pdfPath);
-  res.sendStatus(200);
+  try {
+    await main(
+      senderName,
+      receiverEmail,
+      name,
+      campus,
+      langType,
+      senderEmail,
+      senderPassword,
+      ccArray
+    );
+    const pdfPath = path.join(__dirname, "../../assets/offerLetter/pdf/");
+    await fsExtra.emptyDirSync(pdfPath);
+    res.sendStatus(200);
+  } catch (err) {
+    res.send(err);
+  }
 });
 
 module.exports = router;
