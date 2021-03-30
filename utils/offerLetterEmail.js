@@ -9,12 +9,12 @@ function getHTML(htmlString, senderName, receiverName, campus) {
     Pune: {
       whatsapp_chat_link: "https://chat.whatsapp.com/BWIFHhgIpxXDKDRdNQEv6E",
       program_manager: {
-        name: "Cheshta Sharma",
-        number: "+91-9829331810",
+        name: "Rose Joseph",
+        number: "+91-9188007203",
       },
       tech_facility_in_charge: {
         name: "Shahnaaz",
-        number: "+91-97317 39220",
+        number: "+91-9028829220",
       },
       location: {
         address:
