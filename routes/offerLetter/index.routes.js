@@ -46,8 +46,8 @@ router.post("/admissions", async (req, res, next) => {
   }-${new Date().getFullYear()}`;
 
   const [senderEmail, senderPassword, langType] = [
-    "campus@navgurukul.org",
-    "Outreachng@2",
+    "Offerletter@navgurukul.org",
+    "*#Ng10#*",
     "both",
   ];
 
