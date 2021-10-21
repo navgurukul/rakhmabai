@@ -69,6 +69,21 @@ function getHTML(htmlString, senderName, receiverName, campus) {
         link: "https://goo.gl/maps/dyvEyYt8V1jtDD1L8",
       },
     },
+    Tripura: {
+      whatsapp_chat_link: "https://chat.whatsapp.com/EHdgUM6CFg7IoibqiAuxc1",
+      program_manager: {
+        name: "Kittiy",
+        number: "+91-8097109453",
+      },
+      tech_facility_in_charge: {
+        //   name: "Shahnaaz",
+        //   number: "+91-9028829220",
+      },
+      location: {
+        address: "V76M+J95, Kunjaban Township, Agartala, Tripura 799010",
+        link: "https://g.co/kgs/Jvh8o9",
+      },
+    },
   };
   htmlString = htmlString.replace(/SENDERNAME/g, senderName);
   htmlString = htmlString.replace(/USERNAME/g, receiverName);
@@ -178,6 +193,8 @@ async function main(
     htmlString = await readFile(__dirname + "/emailContent/sarjapura.html");
   } else if (campus === "Dharamshala") {
     htmlString = await readFile(__dirname + "/emailContent/dharamshala.html");
+  } else if (campus === "Tripura") {
+    htmlString = await readFile(__dirname + "/emailContent/tripura.html");
   }
   mailOptions.html = getHTML(htmlString, senderName, receiverName, campus);
   mailOptions.to = receiverEmail + "<" + receiverEmail + ">";
