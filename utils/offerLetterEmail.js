@@ -84,6 +84,21 @@ function getHTML(htmlString, senderName, receiverName, campus) {
         link: "https://g.co/kgs/Jvh8o9",
       },
     },
+    Delhi: {
+      whatsapp_chat_link: "",
+      program_manager: {
+        // name: "",
+        // number: "",
+      },
+      tech_facility_in_charge: {
+        //   name: "Shahnaaz",
+        //   number: "+91-9028829220",
+      },
+      location: {
+        // address: "",
+        // link: "",
+      },
+    },
   };
   htmlString = htmlString.replace(/SENDERNAME/g, senderName);
   htmlString = htmlString.replace(/USERNAME/g, receiverName);
@@ -168,21 +183,25 @@ async function main(
     });
   });
   let offerLetterPDFPath = "";
-  if (langType === "both") {
-    offerLetterPDFPath = path.join(
-      __dirname,
-      "../assets/offerLetter/pdf/admission_letter.pdf"
-    );
-  } else if (langType === "onlyEnglish") {
-    offerLetterPDFPath = path.join(
-      __dirname,
-      "../assets/offerLetter/pdf/admission_letter_only_english.pdf"
-    );
+
+  // Not sending addmission letter pdf for Delhi campus
+  if (campus !== "Delhi") {
+    if (langType === "both") {
+      offerLetterPDFPath = path.join(
+        __dirname,
+        "../assets/offerLetter/pdf/admission_letter.pdf"
+      );
+    } else if (langType === "onlyEnglish") {
+      offerLetterPDFPath = path.join(
+        __dirname,
+        "../assets/offerLetter/pdf/admission_letter_only_english.pdf"
+      );
+    }
+    mailOptions.attachments.push({
+      fileName: `admission_Letter.pdf`,
+      path: offerLetterPDFPath,
+    });
   }
-  mailOptions.attachments.push({
-    fileName: `admission_Letter.pdf`,
-    path: offerLetterPDFPath,
-  });
 
   let htmlString;
   if (campus === "Pune") {
@@ -195,6 +214,8 @@ async function main(
     htmlString = await readFile(__dirname + "/emailContent/dharamshala.html");
   } else if (campus === "Tripura") {
     htmlString = await readFile(__dirname + "/emailContent/tripura.html");
+  } else if (campus === "Delhi") {
+    htmlString = await readFile(__dirname + "/emailContent/delhi.html");
   }
   mailOptions.html = getHTML(htmlString, senderName, receiverName, campus);
   mailOptions.to = receiverEmail + "<" + receiverEmail + ">";
