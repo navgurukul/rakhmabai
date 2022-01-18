@@ -46,8 +46,8 @@ router.post("/admissions", async (req, res, next) => {
   }-${new Date().getFullYear()}`;
 
   const [senderEmail, senderPassword, langType] = [
-    "campus@navgurukul.org",
-    "Outreachng@2",
+    "Offerletter@navgurukul.org",
+    "*#Ng10#*",
     "both",
   ];
 
@@ -59,11 +59,15 @@ router.post("/admissions", async (req, res, next) => {
     Bangalore: "Nilam",
     Sarjapura: "Nilam",
     Tripura: "Kitty",
+    Delhi: "Swati",
   };
 
   const senderName = fachaName[campus];
 
-  await olGenerator(name, date, campus);
+  // Not sending addmission letter pdf for the Delhi campus
+  if (campus !== "Delhi") {
+    await olGenerator(name, date, campus);
+  }
 
   let ccArray = [];
   ccArray = cc.split(",");

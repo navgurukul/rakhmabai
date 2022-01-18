@@ -80,9 +80,12 @@ async function olGenerator(username, given_date, campus) {
   for (var i = 0; i < fileNames.length; i++) {
     var fName = fileNames[i];
     var campusName = campus + "/" + fName;
-
     //Load the docx file as a binary
-    const templatePath = path.join(__dirname, "../document_templates/", campusName);
+    const templatePath = path.join(
+      __dirname,
+      "../document_templates/",
+      campusName
+    );
     var content = fs.readFileSync(templatePath, "binary");
 
     var zip = new PizZip(content);
