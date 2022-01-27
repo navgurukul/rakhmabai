@@ -64,10 +64,7 @@ router.post("/admissions", async (req, res, next) => {
 
   const senderName = fachaName[campus];
 
-  // Not sending addmission letter pdf for the Delhi campus
-  if (campus !== "Delhi") {
-    await olGenerator(name, date, campus);
-  }
+  await olGenerator(name, date, campus);
 
   let ccArray = [];
   ccArray = cc.split(",");
