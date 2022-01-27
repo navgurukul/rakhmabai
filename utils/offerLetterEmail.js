@@ -185,23 +185,21 @@ async function main(
   let offerLetterPDFPath = "";
 
   // Not sending addmission letter pdf for Delhi campus
-  if (campus !== "Delhi") {
-    if (langType === "both") {
-      offerLetterPDFPath = path.join(
-        __dirname,
-        "../assets/offerLetter/pdf/admission_letter.pdf"
-      );
-    } else if (langType === "onlyEnglish") {
-      offerLetterPDFPath = path.join(
-        __dirname,
-        "../assets/offerLetter/pdf/admission_letter_only_english.pdf"
-      );
-    }
-    mailOptions.attachments.push({
-      fileName: `admission_Letter.pdf`,
-      path: offerLetterPDFPath,
-    });
+  if (langType === "both") {
+    offerLetterPDFPath = path.join(
+      __dirname,
+      "../assets/offerLetter/pdf/admission_letter.pdf"
+    );
+  } else if (langType === "onlyEnglish") {
+    offerLetterPDFPath = path.join(
+      __dirname,
+      "../assets/offerLetter/pdf/admission_letter_only_english.pdf"
+    );
   }
+  mailOptions.attachments.push({
+    fileName: `admission_Letter.pdf`,
+    path: offerLetterPDFPath,
+  });
 
   let htmlString;
   if (campus === "Pune") {
