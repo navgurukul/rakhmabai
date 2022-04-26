@@ -56,8 +56,8 @@ function getHTML(htmlString, senderName, receiverName, campus) {
     },
     Dharamshala: {
       program_manager: {
-        name: "Me",
-        number: "+91-9354978726",
+        name: "Nitesh",
+        number: "+91-8962158723",
       },
       tech_facility_in_charge: {
         name: "",
