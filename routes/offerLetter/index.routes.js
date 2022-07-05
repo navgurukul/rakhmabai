@@ -56,8 +56,8 @@ router.post("/admissions", async (req, res, next) => {
   const fachaName = {
     Dharamshala: "Nitesh",
     Pune: "Nilam",
-    Bangalore: "Nilam",
-    Sarjapura: "Nilam",
+    Bangalore: "Samyukta Mutunary",
+    Sarjapura: "Rajalakshmi",
     Tripura: "Kitty",
     Delhi: "Swati",
   };

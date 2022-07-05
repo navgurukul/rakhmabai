@@ -7,30 +7,30 @@ const fs = require("fs");
 function getHTML(htmlString, senderName, receiverName, campus) {
   const campusObj = {
     Pune: {
-      whatsapp_chat_link: "https://chat.whatsapp.com/BWIFHhgIpxXDKDRdNQEv6E",
+      whatsapp_chat_link: "https://chat.whatsapp.com/KRmQztBN8JfLC0Xu39Ly9P",
       program_manager: {
-        name: "Rose Joseph",
-        number: "+91-9188007203",
+        name: "Nilam",
+        number: "+91-7349513911",
       },
       tech_facility_in_charge: {
-        name: "Shahnaaz",
-        number: "+91-9028829220",
+        // name: "Nilam",
+        // number: "+91-7349513911",
       },
       location: {
         address:
-          "Flora Institute of Technology, Pune Khed-Shivapur Toll Plaza, Khopi, Maharashtra 412205 (Phone: 098906 73701)",
-        link: "https://maps.app.goo.gl/PnrmsVXmEgERXdEf7",
+          "Sr. No. 45, Gujarwadi, Narmada city, near Waghjai Temple, Katraj, Pune, Maharashtra 411046",
+        link: "https://g.co/kgs/RKkFW3",
       },
     },
     Bangalore: {
       whatsapp_chat_link: "https://chat.whatsapp.com/GedtCO1sM2MBfIUGFvB5RU",
       program_manager: {
-        name: "Kittiy",
-        number: "+91-8097109453",
+        name: "Samyukta Mutunary",
+        number: "+91-88821 20780",
       },
       tech_facility_in_charge: {
-        name: "Shweta",
-        number: "+91-9718602971",
+        // name: "Shweta",
+        // number: "+91-9718602971",
       },
       location: {
         address:
@@ -41,12 +41,12 @@ function getHTML(htmlString, senderName, receiverName, campus) {
     Sarjapura: {
       whatsapp_chat_link: "https://chat.whatsapp.com/GedtCO1sM2MBfIUGFvB5RU",
       program_manager: {
-        name: "Kittiy",
-        number: "+91-8097109453",
+        name: "Rajalakshmi",
+        number: "+91-9902435764",
       },
       tech_facility_in_charge: {
-        name: "V.kumar nayak",
-        number: "+91-9492116836",
+        // name: "V.kumar nayak",
+        // number: "+91-9492116836",
       },
       location: {
         address:
