@@ -80,10 +80,10 @@ router.post("/admissions", async (req, res, next) => {
       ccArray
     );
     const pdfPath = path.join(__dirname, "../../assets/offerLetter/pdf/");
-    await fsExtra.emptyDirSync(pdfPath);
+    fsExtra.emptyDirSync(pdfPath);
     res.sendStatus(200);
   } catch (err) {
-    res.send(err);
+    res.status(404).send('Not Found');
   }
 });
 

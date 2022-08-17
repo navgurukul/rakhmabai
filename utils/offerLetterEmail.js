@@ -3,8 +3,9 @@ var smtpTransport = require("nodemailer-smtp-transport");
 const { readFile } = require("./fileHandler");
 const path = require("path");
 const fs = require("fs");
+const { Status } = require("@open-wa/wa-automate");
 
-function getHTML(htmlString, senderName, receiverName, campus) {
+async function getHTML(htmlString, senderName, receiverName, campus) {
   const campusObj = {
     Pune: {
       whatsapp_chat_link: "https://chat.whatsapp.com/KRmQztBN8JfLC0Xu39Ly9P",
@@ -215,19 +216,33 @@ async function main(
   } else if (campus === "Delhi") {
     htmlString = await readFile(__dirname + "/emailContent/delhi.html");
   }
-  mailOptions.html = getHTML(htmlString, senderName, receiverName, campus);
-  mailOptions.to = receiverEmail + "<" + receiverEmail + ">";
+  mailOptions.html = await getHTML(
+    htmlString,
+    senderName,
+    receiverName,
+    campus
+  );
+  mailOptions.to = (await receiverEmail) + "<" + receiverEmail + ">";
   if (ccArr.length > 0) {
     mailOptions.cc.push(ccArr);
   }
 
-  await transporter.sendMail(mailOptions, function (err, info) {
-    if (err) console.log(err);
-    else {
+  // transporter.sendMail(mailOptions, function (err, info) {
+  //   if (err) console.log(err);
+  //   else {
+  //     console.log(info);
+  //     console.log(`Sent to ${receiverName} ${receiverEmail}`);
+  //   }
+  // });
+  await transporter
+    .sendMail(mailOptions)
+    .then((info) => {
       console.log(info);
       console.log(`Sent to ${receiverName} ${receiverEmail}`);
-    }
-  });
+    })
+    .catch((error) => {
+      console.log(error);
+    });
 }
 
 module.exports = { main };
