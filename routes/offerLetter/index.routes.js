@@ -83,7 +83,7 @@ router.post("/admissions", async (req, res, next) => {
     await fsExtra.emptyDirSync(pdfPath);
     res.sendStatus(200);
   } catch (err) {
-    res.send(err);
+    res.status(404).send("Not Found");
   }
 });
 

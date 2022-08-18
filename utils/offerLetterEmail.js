@@ -221,13 +221,22 @@ async function main(
     mailOptions.cc.push(ccArr);
   }
 
-  await transporter.sendMail(mailOptions, function (err, info) {
-    if (err) console.log(err);
-    else {
+  // await transporter.sendMail(mailOptions, function (err, info) {
+  //   if (err) console.log(err);
+  //   else {
+  //     console.log(info);
+  //     console.log(`Sent to ${receiverName} ${receiverEmail}`);
+  //   }
+  // })
+  await transporter
+    .sendMail(mailOptions)
+    .then((info) => {
       console.log(info);
       console.log(`Sent to ${receiverName} ${receiverEmail}`);
-    }
-  });
+    })
+    // .catch((error) => {
+    //   console.log(error);
+    // });
 }
 
 module.exports = { main };
