@@ -234,9 +234,9 @@ async function main(
       console.log(info);
       console.log(`Sent to ${receiverName} ${receiverEmail}`);
     })
-    .catch((error) => {
-      console.log(error);
-    });
+    // .catch((error) => {
+    //   console.log(error);
+    // });
 }
 
 module.exports = { main };
