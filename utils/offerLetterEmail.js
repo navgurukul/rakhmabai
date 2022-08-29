@@ -218,6 +218,9 @@ async function main(
   mailOptions.html = getHTML(htmlString, senderName, receiverName, campus);
   mailOptions.to = receiverEmail + "<" + receiverEmail + ">";
   if (ccArr.length > 0) {
+    if (campus === "Delhi") {
+      ccArr.push('ngadmissions@dseu.ac.in')
+    }
     mailOptions.cc.push(ccArr);
   }
 
@@ -234,9 +237,9 @@ async function main(
       console.log(info);
       console.log(`Sent to ${receiverName} ${receiverEmail}`);
     })
-    // .catch((error) => {
-    //   console.log(error);
-    // });
+  // .catch((error) => {
+  //   console.log(error);
+  // });
 }
 
 module.exports = { main };
