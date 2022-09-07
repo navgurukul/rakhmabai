@@ -60,6 +60,7 @@ router.post("/admissions", async (req, res, next) => {
     Sarjapura: "Rajalakshmi",
     Tripura: "Kitty",
     Delhi: "Navgurukul",
+    Amravati: "Akansha"
   };
 
   const senderName = fachaName[campus];
