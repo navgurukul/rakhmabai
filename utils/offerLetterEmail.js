@@ -99,6 +99,21 @@ function getHTML(htmlString, senderName, receiverName, campus) {
         // link: "",
       },
     },
+    Amravati: {
+      whatsapp_chat_link: "https://chat.whatsapp.com/Bvom0itZjfoIIx644hb8cz",
+      program_manager: {
+        // name: "",
+        // number: "",
+      },
+      tech_facility_in_charge: {
+        //   name: "Shahnaaz",
+        //   number: "+91-9028829220",
+      },
+      location: {
+        address: "Dr.Panjabrao Deshmukh Administrative Prabodhini,Amravati",
+        link: "https://g.co/kgs/rCnNoj",
+      },
+    },
   };
   htmlString = htmlString.replace(/SENDERNAME/g, senderName);
   htmlString = htmlString.replace(/USERNAME/g, receiverName);
@@ -214,6 +229,8 @@ async function main(
     htmlString = await readFile(__dirname + "/emailContent/tripura.html");
   } else if (campus === "Delhi") {
     htmlString = await readFile(__dirname + "/emailContent/delhi.html");
+  } else if (campus === "Amravati") {
+    htmlString = await readFile(__dirname + "/emailContent/amravati.html");
   }
   mailOptions.html = getHTML(htmlString, senderName, receiverName, campus);
   mailOptions.to = receiverEmail + "<" + receiverEmail + ">";
