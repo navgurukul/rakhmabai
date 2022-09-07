@@ -238,16 +238,13 @@ async function main(
     if (campus === "Delhi") {
       ccArr.push('ngadmissions@dseu.ac.in')
     }
+    else if(campus === "Amravati"){
+      ccArr.push('akanksha.ngamravati@gmail.com')
+    }
     mailOptions.cc.push(ccArr);
   }
 
-  // await transporter.sendMail(mailOptions, function (err, info) {
-  //   if (err) console.log(err);
-  //   else {
-  //     console.log(info);
-  //     console.log(`Sent to ${receiverName} ${receiverEmail}`);
-  //   }
-  // })
+
   await transporter
     .sendMail(mailOptions)
     .then((info) => {
