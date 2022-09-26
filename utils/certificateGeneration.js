@@ -1,8 +1,10 @@
-require("dotenv").config({path: `${__dirname}/../.env`});
+require("dotenv").config({ path: `${__dirname}/../.env` });
 var PizZip = require("pizzip");
 var Docxtemplater = require("docxtemplater");
 // const docx = require("@nativedocuments/docx-wasm");
 const constants = require("../constants");
+var nodemailer = require("nodemailer");
+var smtpTransport = require("nodemailer-smtp-transport");
 
 
 // npm install googleapis@39 --save
@@ -21,6 +23,16 @@ String.prototype.replaceAll = function (search, replacement) {
   return target.replace(new RegExp(search, "g"), replacement);
 };
 
+// var transporter = nodemailer.createTransport(
+//   smtpTransport({
+//     service: "gmail",
+//     host: "smtp.gmail.com",
+//     auth: {
+//       user: "Offerletter@navgurukul.org",
+//       pass: "offer_letter22",
+//     },
+//   })
+// );
 
 async function olGenerator(props) {
 
@@ -103,7 +115,7 @@ async function olGenerator(props) {
           console.error(err);
         } else {
           console.log("File Id: ", file.data.id);
-          console.log(Name, Date,Workshop,file.data.id)
+          console.log(Name, Date, Workshop, file.data.id)
           // update donor status to `issued` in sheet
         }
       }
@@ -111,25 +123,25 @@ async function olGenerator(props) {
   }
 
   async function convertHelper(document, exportFct) {
-    
+
     return await libre.convertAsync(document, '.pdf', undefined);
   }
-  const { Name, Date,Campus,Workshop,Email} = props
+  const { Name, Date, Campus, Workshop, Email } = props
 
   async function getCertificates(doc) {
-    doc.setData({ Name, Date,Campus,Workshop});
+    doc.setData({ Name, Date, Campus, Workshop });
     try {
       doc.render();
     } catch (error) {
       var e = {
         message: error.message, name: error.name, stack: error.stack, properties: error.properties,
       };
-      console.log(JSON.stringify({error: e}));
+      console.log(JSON.stringify({ error: e }));
       // The error thrown here contains additional information when logged with JSON.stringify (it contains a property object).
       throw error;
     }
 
-    var buf = doc.getZip().generate({type: "nodebuffer"});
+    var buf = doc.getZip().generate({ type: "nodebuffer" });
     const docPath = path.join(__dirname, "../assets/offerLetter/docs/");
 
     if (!fs.existsSync(docPath)) {
@@ -139,23 +151,50 @@ async function olGenerator(props) {
 
     // fs.writeFileSync(path.resolve(docPath + fileName + ".docx"), buf);
     convertHelper(new Uint8Array(buf), "exportPDF")
-      .then((arrayBuffer) => {
+      .then(async (arrayBuffer) => {
         const pdfPath = path.join(__dirname, "../assets/offerLetter/pdf/");
         if (!fs.existsSync(pdfPath)) {
           fs.mkdirSync(pdfPath);
         }
         // buf is a nodejs buffer, you can either write it to a file or do anything else with it.
-        var filePath = path.resolve(pdfPath + "certificate" + ".pdf")
+        // var filePath = path.resolve(pdfPath + "certificate" + ".pdf")
+        var filePath = path.resolve(pdfPath + Name + "-" + Date + "-" + Workshop + ".pdf")
+        const fileName = (Name + "-" + Date + "-" + Workshop)
+        const finalName = [fileName, ".pdf"]
+        // console.log(fileName)
         fs.writeFileSync(filePath, new Uint8Array(arrayBuffer));
-        main(filePath,"certificate.pdf")
+        // main(filePath,"certificate.pdf")
+        // main(filePath, (finalName[0] + finalName[1]))
+
+
+          // var mailOptions = {
+          //   from: `Navgurukul <Offerletter@navgurukul.org>`,
+          //   to: Email,
+          //   // subject: `Welcome To NavGurukul : Admission Letter`,
+          //   subject: `Certificate for ${Name + " on " + Date + " in " + Workshop}`,
+          //   html: "",
+          //   attachments: [{
+          //     fileName: `Certificate.pdf`,
+          //     path: filePath,
+          //   }],
+          //   cc: [],
+          // };
+          // await transporter.sendMail(mailOptions, function (err, info) {
+          //   if (err) console.log(err);
+          //   else {
+          //     console.log(info);
+          //     console.log(Email);
+          //   }
+          // });
       })
+
       .catch((e) => {
         console.error(e);
       });
   }
 
   //Load the docx file as a binary
-  const templatePath = path.join(__dirname, "../assets/certificateGeneration/certificate.docx" );
+  const templatePath = path.join(__dirname, "../assets/certificateGeneration/certificate.docx");
   var content = fs.readFileSync(templatePath, "binary");
 
   var zip = new PizZip(content);
@@ -163,10 +202,10 @@ async function olGenerator(props) {
   var doc = new Docxtemplater();
   doc.loadZip(zip);
 
-  doc.setOptions({linebreaks: true});
+  doc.setOptions({ linebreaks: true });
   getCertificates(doc);
-  
+
 }
 
-module.exports = {olGenerator};
+module.exports = { olGenerator };
 
