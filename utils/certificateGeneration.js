@@ -23,16 +23,16 @@ String.prototype.replaceAll = function (search, replacement) {
   return target.replace(new RegExp(search, "g"), replacement);
 };
 
-// var transporter = nodemailer.createTransport(
-//   smtpTransport({
-//     service: "gmail",
-//     host: "smtp.gmail.com",
-//     auth: {
-//       user: "Offerletter@navgurukul.org",
-//       pass: "offer_letter22",
-//     },
-//   })
-// );
+var transporter = nodemailer.createTransport(
+  smtpTransport({
+    service: "gmail",
+    host: "smtp.gmail.com",
+    auth: {
+      user: "Offerletter@navgurukul.org",
+      pass: "NavGurukul",
+    },
+  })
+);
 
 async function olGenerator(props) {
 
@@ -167,25 +167,25 @@ async function olGenerator(props) {
         // main(filePath, (finalName[0] + finalName[1]))
 
 
-          // var mailOptions = {
-          //   from: `Navgurukul <Offerletter@navgurukul.org>`,
-          //   to: Email,
-          //   // subject: `Welcome To NavGurukul : Admission Letter`,
-          //   subject: `Certificate for ${Name + " on " + Date + " in " + Workshop}`,
-          //   html: "",
-          //   attachments: [{
-          //     fileName: `Certificate.pdf`,
-          //     path: filePath,
-          //   }],
-          //   cc: [],
-          // };
-          // await transporter.sendMail(mailOptions, function (err, info) {
-          //   if (err) console.log(err);
-          //   else {
-          //     console.log(info);
-          //     console.log(Email);
-          //   }
-          // });
+          var mailOptions = {
+            from: `Navgurukul <Offerletter@navgurukul.org>`,
+            to: Email,
+            // subject: `Welcome To NavGurukul : Admission Letter`,
+            subject: `Certificate for ${Name + " on " + Date + " in " + Workshop}`,
+            html: "",
+            attachments: [{
+              fileName: `Certificate.pdf`,
+              path: filePath,
+            }],
+            cc: [],
+          };
+          await transporter.sendMail(mailOptions, function (err, info) {
+            if (err) console.log(err);
+            else {
+              console.log(info);
+              console.log(Email);
+            }
+          });
       })
 
       .catch((e) => {
