@@ -114,6 +114,51 @@ function getHTML(htmlString, senderName, receiverName, campus) {
         link: "https://g.co/kgs/rCnNoj",
       },
     },
+    Dantewada: {
+      whatsapp_chat_link: "",
+      program_manager: {
+        // name: "",
+        // number: "",
+      },
+      tech_facility_in_charge: {
+        //   name: "Shahnaaz",
+        //   number: "+91-9028829220",
+      },
+      location: {
+        // address: "",
+        // link: "",
+      },
+    },
+    Udaipur: {
+      whatsapp_chat_link: "",
+      program_manager: {
+        // name: "",
+        // number: "",
+      },
+      tech_facility_in_charge: {
+        //   name: "Shahnaaz",
+        //   number: "+91-9028829220",
+      },
+      location: {
+        // address: "",
+        // link: "",
+      },
+    },
+    Jashpur: {
+      whatsapp_chat_link: "",
+      program_manager: {
+        // name: "",
+        // number: "",
+      },
+      tech_facility_in_charge: {
+        //   name: "Shahnaaz",
+        //   number: "+91-9028829220",
+      },
+      location: {
+        // address: "",
+        // link: "",
+      },
+    },
   };
   htmlString = htmlString.replace(/SENDERNAME/g, senderName);
   htmlString = htmlString.replace(/USERNAME/g, receiverName);
@@ -231,6 +276,12 @@ async function main(
     htmlString = await readFile(__dirname + "/emailContent/delhi.html");
   } else if (campus === "Amravati") {
     htmlString = await readFile(__dirname + "/emailContent/amravati.html");
+  } else if (campus === "Dantewada") {
+    htmlString = await readFile(__dirname + "/emailContent/dantewada.html");
+  } else if (campus === "Jashpur") {
+    htmlString = await readFile(__dirname + "/emailContent/jashpur.html");
+  } else if (campus === "Udaipur") {
+    htmlString = await readFile(__dirname + "/emailContent/udaipur.html");
   }
   mailOptions.html = getHTML(htmlString, senderName, receiverName, campus);
   mailOptions.to = receiverEmail + "<" + receiverEmail + ">";
