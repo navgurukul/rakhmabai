@@ -114,6 +114,51 @@ function getHTML(htmlString, senderName, receiverName, campus) {
         link: "https://g.co/kgs/rCnNoj",
       },
     },
+    Dantewada: {
+      whatsapp_chat_link: "https://chat.whatsapp.com/CQxVZlbKCv19P8E08IBCdu",
+      program_manager: {
+        // name: "",
+        // number: "",
+      },
+      tech_facility_in_charge: {
+        //   name: "Shahnaaz",
+        //   number: "+91-9028829220",
+      },
+      location: {
+        // address: "",
+        link: "https://g.co/kgs/RKkFW3",
+      },
+    },
+    Udaipur: {
+      whatsapp_chat_link: "https://chat.whatsapp.com/CQxVZlbKCv19P8E08IBCdu)",
+      program_manager: {
+        // name: "",
+        // number: "",
+      },
+      tech_facility_in_charge: {
+        //   name: "Shahnaaz",
+        //   number: "+91-9028829220",
+      },
+      location: {
+        // address: "",
+        link: "https://g.co/kgs/RKkFW3",
+      },
+    },
+    Jashpur: {
+      whatsapp_chat_link: "https://chat.whatsapp.com/HTC2cNdJML0KZOnX4xaalc",
+      program_manager: {
+        // name: "",
+        // number: "",
+      },
+      tech_facility_in_charge: {
+        //   name: "Shahnaaz",
+        //   number: "+91-9028829220",
+      },
+      location: {
+        // address: "",
+        link: "https://maps.app.goo.gl/snhQdsDh8p4PtLft7",
+      },
+    },
   };
   htmlString = htmlString.replace(/SENDERNAME/g, senderName);
   htmlString = htmlString.replace(/USERNAME/g, receiverName);
@@ -231,6 +276,12 @@ async function main(
     htmlString = await readFile(__dirname + "/emailContent/delhi.html");
   } else if (campus === "Amravati") {
     htmlString = await readFile(__dirname + "/emailContent/amravati.html");
+  } else if (campus === "Dantewada") {
+    htmlString = await readFile(__dirname + "/emailContent/dantewada.html");
+  } else if (campus === "Jashpur") {
+    htmlString = await readFile(__dirname + "/emailContent/jashpur.html");
+  } else if (campus === "Udaipur") {
+    htmlString = await readFile(__dirname + "/emailContent/udaipur.html");
   }
   mailOptions.html = getHTML(htmlString, senderName, receiverName, campus);
   mailOptions.to = receiverEmail + "<" + receiverEmail + ">";

@@ -41,9 +41,8 @@ router.post("/sendEmail", async (req, res, next) => {
 });
 
 router.post("/admissions", async (req, res, next) => {
-  const date = `${new Date().getDate()}-${
-    new Date().getMonth() + 1
-  }-${new Date().getFullYear()}`;
+  const date = `${new Date().getDate()}-${new Date().getMonth() + 1
+    }-${new Date().getFullYear()}`;
 
   const [senderEmail, senderPassword, langType] = [
     "Offerletter@navgurukul.org",
@@ -56,11 +55,14 @@ router.post("/admissions", async (req, res, next) => {
   const fachaName = {
     Dharamshala: "Nitesh",
     Pune: "Nilam",
-    Bangalore: "Samyukta Mutunary",
-    Sarjapura: "Rajalakshmi",
-    Tripura: "Kitty",
+    Bangalore: "Rupali",
+    Sarjapura: "Rupali",
+    Tripura: "Kajal",
     Delhi: "Navgurukul",
-    Amravati: "Akansha"
+    Amravati: "Akansha",
+    Dantewada: "Shivani",
+    Jashpur: "Sakshi",
+    Udaipur: "Shivani"
   };
 
   const senderName = fachaName[campus];
@@ -84,6 +86,7 @@ router.post("/admissions", async (req, res, next) => {
     await fsExtra.emptyDirSync(pdfPath);
     res.sendStatus(200);
   } catch (err) {
+    console.log(err, '>>>>>>>>>>>>>>>>');
     res.status(404).send("Not Found");
   }
 });
