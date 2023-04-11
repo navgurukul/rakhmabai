@@ -61,7 +61,7 @@ router.post("/admissions", async (req, res, next) => {
     Delhi: "Navgurukul",
     Amravati: "Akansha",
     Dantewada: "Shivani",
-    Jashpur: "Shivani",
+    Jashpur: "Sakshi",
     Udaipur: "Shivani"
   };
 
