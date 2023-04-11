@@ -115,7 +115,7 @@ function getHTML(htmlString, senderName, receiverName, campus) {
       },
     },
     Dantewada: {
-      whatsapp_chat_link: "",
+      whatsapp_chat_link: "https://chat.whatsapp.com/CQxVZlbKCv19P8E08IBCdu",
       program_manager: {
         // name: "",
         // number: "",
@@ -126,11 +126,11 @@ function getHTML(htmlString, senderName, receiverName, campus) {
       },
       location: {
         // address: "",
-        // link: "",
+        link: "https://g.co/kgs/RKkFW3",
       },
     },
     Udaipur: {
-      whatsapp_chat_link: "",
+      whatsapp_chat_link: "https://chat.whatsapp.com/CQxVZlbKCv19P8E08IBCdu)",
       program_manager: {
         // name: "",
         // number: "",
@@ -141,11 +141,11 @@ function getHTML(htmlString, senderName, receiverName, campus) {
       },
       location: {
         // address: "",
-        // link: "",
+        link: "https://g.co/kgs/RKkFW3",
       },
     },
     Jashpur: {
-      whatsapp_chat_link: "",
+      whatsapp_chat_link: "https://chat.whatsapp.com/HTC2cNdJML0KZOnX4xaalc",
       program_manager: {
         // name: "",
         // number: "",
@@ -156,7 +156,7 @@ function getHTML(htmlString, senderName, receiverName, campus) {
       },
       location: {
         // address: "",
-        // link: "",
+        link: "https://maps.app.goo.gl/snhQdsDh8p4PtLft7",
       },
     },
   };
