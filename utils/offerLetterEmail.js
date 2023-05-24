@@ -292,6 +292,31 @@ async function main(
     else if(campus === "Amravati"){
       ccArr.push('akanksha.ngamravati@gmail.com')
     }
+    else if(campus === "Pune"){
+      ccArr.push('puneteam@navgurukul.org')
+    }
+    else if(campus === "Bangalore"){
+      ccArr.push('bangalore_admissions@navgurukul.org')
+    }
+    else if(campus === "Sarjapura"){
+      ccArr.push('Sarjapur_team@navgurukul.org')
+    }
+    else if(campus === "Tripura"){
+      ccArr.push('tripura-team@navgurukul.org')
+    }
+    else if(campus === "Jashpur"){
+      ccArr.push('Jashpur_admissions@navgurukul.org')
+    }
+    else if(campus === "Dantewada"){
+      ccArr.push('dantewada_admissions@navgurukul.org')
+    }
+    else if(campus === "Udaipur"){
+      ccArr.push('udaipur_admissions@navgurukul.org')
+    }
+    else if(campus === "Dharamshala"){
+      ccArr.push('dharamshala_admissions@navgurukul.org')
+    }
+    
     mailOptions.cc.push(ccArr);
   }
 
