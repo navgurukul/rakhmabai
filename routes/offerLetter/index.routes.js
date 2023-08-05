@@ -12,6 +12,7 @@ router.post("/generateCertificate", async (req, res, next) => {
   await olGenerator(name, date, campus);
   res.sendStatus(200);
 });
+
 router.post("/sendEmail", async (req, res, next) => {
   const {
     senderName,
@@ -36,13 +37,12 @@ router.post("/sendEmail", async (req, res, next) => {
     ccArray
   );
   const pdfPath = path.join(__dirname, "../../assets/offerLetter/pdf/");
-  await fsExtra.emptyDirSync(pdfPath);
+  await fsExtra.emptyDir(pdfPath); // Use the asynchronous version here
   res.sendStatus(200);
 });
 
 router.post("/admissions", async (req, res, next) => {
-  const date = `${new Date().getDate()}-${new Date().getMonth() + 1
-    }-${new Date().getFullYear()}`;
+  const date = `${new Date().getDate()}-${new Date().getMonth() + 1}-${new Date().getFullYear()}`;
 
   const [senderEmail, senderPassword, langType] = [
     "Offerletter@navgurukul.org",
@@ -83,7 +83,7 @@ router.post("/admissions", async (req, res, next) => {
       ccArray
     );
     const pdfPath = path.join(__dirname, "../../assets/offerLetter/pdf/");
-    await fsExtra.emptyDirSync(pdfPath);
+    await fsExtra.emptyDir(pdfPath); // Use the asynchronous version here
     res.sendStatus(200);
   } catch (err) {
     console.log(err, '>>>>>>>>>>>>>>>>');
