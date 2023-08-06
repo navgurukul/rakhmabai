@@ -37,7 +37,7 @@ router.post("/sendEmail", async (req, res, next) => {
     ccArray
   );
   const pdfPath = path.join(__dirname, "../../assets/offerLetter/pdf/");
-  await fsExtra.emptyDir(pdfPath); // Use the asynchronous version here
+  // await fsExtra.emptyDir(pdfPath); // Use the asynchronous version here
   res.sendStatus(200);
 });
 
@@ -83,7 +83,7 @@ router.post("/admissions", async (req, res, next) => {
       ccArray
     );
     const pdfPath = path.join(__dirname, "../../assets/offerLetter/pdf/");
-    await fsExtra.emptyDir(pdfPath); // Use the asynchronous version here
+    // await fsExtra.emptyDir(pdfPath); // Use the asynchronous version here
     res.sendStatus(200);
   } catch (err) {
     console.log(err, '>>>>>>>>>>>>>>>>');
