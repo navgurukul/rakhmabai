@@ -55,7 +55,7 @@ function getHTML(htmlString, senderName, receiverName, campus) {
       },
     },
     Dharamshala: {
-      whatsapp_chat_link:"https://chat.whatsapp.com/BjO1NMCXStM999HVrkUNX4",
+      whatsapp_chat_link: "https://chat.whatsapp.com/BjO1NMCXStM999HVrkUNX4",
       program_manager: {
         name: "Ram Ashish Chauhan",
         number: "+91-8052628214",
@@ -127,7 +127,7 @@ function getHTML(htmlString, senderName, receiverName, campus) {
       },
       location: {
         address: "YUVA BPO, EDUCATION CITY, JAWANGA, Geedam Dantewada, Chhattisgarh 494441",
-        link: "http://surl.li/gjexc",
+        link: "https://goo.gl/maps/zggPcVZcc97ykCDB8",
       },
     },
     Udaipur: {
@@ -142,7 +142,7 @@ function getHTML(htmlString, senderName, receiverName, campus) {
       },
       location: {
         // address: "",
-        link: "http://surl.li/gjezm",
+        link: "https://goo.gl/maps/fjtQSexmngedNeyv5",
       },
     },
     Raipur: {
@@ -232,10 +232,17 @@ async function main(
     })
   );
 
+  let subjectTitle;
+  if (campus == "Udaipur") {
+    subjectTitle = "Offer Letter - Abhilasha Program Udaipur Campus"
+  } else {
+    subjectTitle = "Welcome To NavGurukul : Admission Letter"
+  }
+
   var mailOptions = {
     from: `${senderName} <${senderEmail}>`,
     to: "",
-    subject: `Welcome To NavGurukul : Admission Letter`,
+    subject: subjectTitle,
     html: "",
     attachments: [],
     cc: [],
@@ -262,16 +269,17 @@ async function main(
 
   // Not sending addmission letter pdf for Delhi campus
   if (langType === "both") {
-    offerLetterPDFPath = path.join(
-      __dirname,
-      "../assets/offerLetter/pdf/admission_letter.pdf"
-    );
+
+    offerLetterPDFPath = (campus == "Udaipur") ? path.join(
+      __dirname, "../assets/offerLetter/pdf/Abhilasha Offer Letter.pdf") : path.join(
+        __dirname, "../assets/offerLetter/pdf/admission_letter.pdf");
   } else if (langType === "onlyEnglish") {
     offerLetterPDFPath = path.join(
       __dirname,
       "../assets/offerLetter/pdf/admission_letter_only_english.pdf"
     );
   }
+  
   mailOptions.attachments.push({
     fileName: `admission_Letter.pdf`,
     path: offerLetterPDFPath,
@@ -299,7 +307,7 @@ async function main(
   } else if (campus === "Udaipur") {
     htmlString = await readFile(__dirname + "/emailContent/udaipur.html");
   } else if (campus === "Raipur") {
-  htmlString = await readFile(__dirname + "/emailContent/raipur.html");
+    htmlString = await readFile(__dirname + "/emailContent/raipur.html");
   }
   mailOptions.html = getHTML(htmlString, senderName, receiverName, campus);
   mailOptions.to = receiverEmail + "<" + receiverEmail + ">";
@@ -307,37 +315,37 @@ async function main(
     if (campus === "Delhi") {
       ccArr.push('ngadmissions@dseu.ac.in')
     }
-    else if(campus === "Amravati"){
+    else if (campus === "Amravati") {
       ccArr.push('amravaticampusteam@navgurukul.org')
     }
-    else if(campus === "Pune"){
+    else if (campus === "Pune") {
       ccArr.push('puneteam@navgurukul.org')
     }
-    else if(campus === "Bangalore"){
+    else if (campus === "Bangalore") {
       ccArr.push('bangalore_admissions@navgurukul.org')
     }
-    else if(campus === "Sarjapur"){
+    else if (campus === "Sarjapur") {
       ccArr.push('Sarjapur_team@navgurukul.org')
     }
-    else if(campus === "Tripura"){
+    else if (campus === "Tripura") {
       ccArr.push('tripura-team@navgurukul.org')
     }
-    else if(campus === "Jashpur"){
+    else if (campus === "Jashpur") {
       ccArr.push('Jashpur_admissions@navgurukul.org')
     }
-    else if(campus === "Dantewada"){
+    else if (campus === "Dantewada") {
       ccArr.push('dantewada_admissions@navgurukul.org')
     }
-    else if(campus === "Udaipur"){
+    else if (campus === "Udaipur") {
       ccArr.push('udaipur_admissions@navgurukul.org')
     }
-    else if(campus === "Dharamshala"){
+    else if (campus === "Dharamshala") {
       ccArr.push('dharamshala_admissions@navgurukul.org')
     }
-    else if(campus === "Raipur"){
+    else if (campus === "Raipur") {
       ccArr.push('Parveenbano21@navgurukul.org')
     }
-    
+
     mailOptions.cc.push(ccArr);
   }
 
