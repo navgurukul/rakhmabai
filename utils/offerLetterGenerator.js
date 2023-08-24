@@ -57,7 +57,7 @@ async function getCertificates(doc, username, given_date, fileName, campus) {
 async function olGenerator(username, given_date, campus) {
 
   // const fileNames = ["admission_letter.docx", "admission_letter_only_english.docx"];
-  const fileNames = ["admission_letter.docx", "Abhilasha Offer Letter.docx"];
+ const fileNames = ["admission_letter.docx"];
 
  const promises = fileNames.map(async (fName) => {
   if (campus=="Udaipur"){
