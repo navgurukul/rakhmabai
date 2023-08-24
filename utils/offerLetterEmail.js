@@ -9,8 +9,8 @@ function getHTML(htmlString, senderName, receiverName, campus) {
     Pune: {
       whatsapp_chat_link: "https://chat.whatsapp.com/KRmQztBN8JfLC0Xu39Ly9P",
       program_manager: {
-        name: "Snehati",
-        number: "+91-9881357582",
+        name: "Nilam",
+        number: "+91-7349513911",
       },
       tech_facility_in_charge: {
         // name: "Nilam",
@@ -18,8 +18,8 @@ function getHTML(htmlString, senderName, receiverName, campus) {
       },
       location: {
         address:
-          "Anish Jadhav Memorial Foundation Gharkul Properties, Plot No. 60/1/1, Survey No 60, Pathare Wasti, Lohegaon,Pune, Maharashtra 411047",
-        link: "https://g.co/kgs/774bwu",
+          "Sr. No. 45, Gujarwadi, Narmada city, near Waghjai Temple, Katraj, Pune, Maharashtra 411046",
+        link: "https://g.co/kgs/RKkFW3",
       },
     },
     Bangalore: {
@@ -41,8 +41,8 @@ function getHTML(htmlString, senderName, receiverName, campus) {
     Sarjapura: {
       whatsapp_chat_link: "https://chat.whatsapp.com/GedtCO1sM2MBfIUGFvB5RU",
       program_manager: {
-        name: "Mehak",
-        number: "+91-89567 68895",
+        name: "Rajalakshmi",
+        number: "+91-9902435764",
       },
       tech_facility_in_charge: {
         // name: "V.kumar nayak",
@@ -50,15 +50,14 @@ function getHTML(htmlString, senderName, receiverName, campus) {
       },
       location: {
         address:
-          "No. 68/16A of Halanayakana Halli village Varthur, East, Taluk, Uttarahalli Hobli, Bengaluru, Karnataka 560035.",
+          "45/1, 45/2, Avalahalli Huskur Panchayath, Sarjapura Hobli, Anekal Taluk Dist, Majra Ahir, Bengaluru, Karnataka 560099",
         link: "https://maps.app.goo.gl/aoYyN",
       },
     },
     Dharamshala: {
-      whatsapp_chat_link: "https://chat.whatsapp.com/BjO1NMCXStM999HVrkUNX4",
       program_manager: {
-        name: "Ram Ashish Chauhan",
-        number: "+91-8052628214",
+        name: "Nitesh",
+        number: "+91-8962158723",
       },
       tech_facility_in_charge: {
         name: "",
@@ -67,7 +66,7 @@ function getHTML(htmlString, senderName, receiverName, campus) {
       location: {
         address:
           "Ward number 202, Sukkhad (Garh, Dharamshala, Himachal Pradesh 176057)",
-        link: "https://goo.gl/maps/dG8G1gs2DyzQhWCCA",
+        link: "https://goo.gl/maps/dyvEyYt8V1jtDD1L8",
       },
     },
     Tripura: {
@@ -103,8 +102,8 @@ function getHTML(htmlString, senderName, receiverName, campus) {
     Amravati: {
       whatsapp_chat_link: "https://chat.whatsapp.com/Bvom0itZjfoIIx644hb8cz",
       program_manager: {
-        name: "Atiya",
-        number: "9353615437",
+        // name: "",
+        // number: "",
       },
       tech_facility_in_charge: {
         //   name: "Shahnaaz",
@@ -116,25 +115,10 @@ function getHTML(htmlString, senderName, receiverName, campus) {
       },
     },
     Dantewada: {
-      whatsapp_chat_link: "https://chat.whatsapp.com/EAgBUxF9Nh0BNLil33Gnzt)",
+      whatsapp_chat_link: "https://chat.whatsapp.com/CQxVZlbKCv19P8E08IBCdu",
       program_manager: {
-        name: "Rupali",
-        number: "6361620437",
-      },
-      tech_facility_in_charge: {
-        //   name: "Shahnaaz",
-        //   number: "+91-9028829220",
-      },
-      location: {
-        address: "YUVA BPO, EDUCATION CITY, JAWANGA, Geedam Dantewada, Chhattisgarh 494441",
-        link: "https://goo.gl/maps/zggPcVZcc97ykCDB8",
-      },
-    },
-    Udaipur: {
-      whatsapp_chat_link: "https://chat.whatsapp.com/CQxVZlbKCv19P8E08IBCdu)",
-      program_manager: {
-        name: "Shivani",
-        number: "7414945048",
+        // name: "",
+        // number: "",
       },
       tech_facility_in_charge: {
         //   name: "Shahnaaz",
@@ -142,28 +126,28 @@ function getHTML(htmlString, senderName, receiverName, campus) {
       },
       location: {
         // address: "",
-        link: "https://goo.gl/maps/fjtQSexmngedNeyv5",
+        link: "https://g.co/kgs/RKkFW3",
       },
     },
-    Raipur: {
-      whatsapp_chat_link: "https://chat.whatsapp.com/KISRz8ercOZKqGFojogmmN)",
+    Udaipur: {
+      whatsapp_chat_link: "https://chat.whatsapp.com/CQxVZlbKCv19P8E08IBCdu)",
       program_manager: {
-        name: "Parveen Bano",
-        number: "8793660708",
+        // name: "",
+        // number: "",
       },
       tech_facility_in_charge: {
         //   name: "Shahnaaz",
         //   number: "+91-9028829220",
       },
       location: {
-        address: "Yog Bhawan, VIP Rd, near Agrasen Dham II, Fundahar",
-        link: "https://goo.gl/maps/5ACXcqhgFGLG1z1s8",
+        // address: "",
+        link: "https://g.co/kgs/RKkFW3",
       },
     },
     Jashpur: {
       whatsapp_chat_link: "https://chat.whatsapp.com/HTC2cNdJML0KZOnX4xaalc",
       program_manager: {
-        name: "Sakshi",
+        // name: "",
         // number: "",
       },
       tech_facility_in_charge: {
@@ -232,17 +216,10 @@ async function main(
     })
   );
 
-  let subjectTitle;
-  if (campus == "Udaipur") {
-    subjectTitle = "Offer Letter - Abhilasha Program Udaipur Campus"
-  } else {
-    subjectTitle = "Welcome To NavGurukul : Admission Letter"
-  }
-
   var mailOptions = {
     from: `${senderName} <${senderEmail}>`,
     to: "",
-    subject: subjectTitle,
+    subject: `Welcome To NavGurukul : Admission Letter`,
     html: "",
     attachments: [],
     cc: [],
@@ -272,14 +249,13 @@ async function main(
 
     offerLetterPDFPath = (campus == "Udaipur") ? path.join(
       __dirname, "../assets/offerLetter/pdf/Abhilasha Offer Letter.pdf") : path.join(
-        __dirname, "../assets/offerLetter/pdf/admission_letter.pdf");
+      __dirname, "../assets/offerLetter/pdf/admission_letter.pdf");
   } else if (langType === "onlyEnglish") {
     offerLetterPDFPath = path.join(
       __dirname,
       "../assets/offerLetter/pdf/admission_letter_only_english.pdf"
     );
   }
-  
   mailOptions.attachments.push({
     fileName: `admission_Letter.pdf`,
     path: offerLetterPDFPath,
@@ -315,37 +291,37 @@ async function main(
     if (campus === "Delhi") {
       ccArr.push('ngadmissions@dseu.ac.in')
     }
-    else if (campus === "Amravati") {
+    else if(campus === "Amravati"){
       ccArr.push('amravaticampusteam@navgurukul.org')
     }
-    else if (campus === "Pune") {
+    else if(campus === "Pune"){
       ccArr.push('puneteam@navgurukul.org')
     }
-    else if (campus === "Bangalore") {
+    else if(campus === "Bangalore"){
       ccArr.push('bangalore_admissions@navgurukul.org')
     }
-    else if (campus === "Sarjapur") {
+    else if(campus === "Sarjapur"){
       ccArr.push('Sarjapur_team@navgurukul.org')
     }
-    else if (campus === "Tripura") {
+    else if(campus === "Tripura"){
       ccArr.push('tripura-team@navgurukul.org')
     }
-    else if (campus === "Jashpur") {
+    else if(campus === "Jashpur"){
       ccArr.push('Jashpur_admissions@navgurukul.org')
     }
-    else if (campus === "Dantewada") {
+    else if(campus === "Dantewada"){
       ccArr.push('dantewada_admissions@navgurukul.org')
     }
-    else if (campus === "Udaipur") {
+    else if(campus === "Udaipur"){
       ccArr.push('udaipur_admissions@navgurukul.org')
     }
-    else if (campus === "Dharamshala") {
+    else if(campus === "Dharamshala"){
       ccArr.push('dharamshala_admissions@navgurukul.org')
     }
     else if (campus === "Raipur") {
       ccArr.push('Parveenbano21@navgurukul.org')
     }
-
+    
     mailOptions.cc.push(ccArr);
   }
 
