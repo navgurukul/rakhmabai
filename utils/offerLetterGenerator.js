@@ -60,14 +60,8 @@ async function olGenerator(username, given_date, campus) {
  const fileNames = ["admission_letter.docx"];
 
  const promises = fileNames.map(async (fName) => {
-  if (campus=="Udaipur"){
-    var campusName = campus + "/" + "Abhilasha Offer Letter.docx";
-  }
-  else{
   var campusName = campus + "/" + fName;
-  }
   const templatePath = path.join(__dirname, "../document_templates/", campusName);
-  
   var content = fs.readFileSync(templatePath, "binary");
 
    var zip = new PizZip(content);

@@ -269,10 +269,10 @@ async function main(
 
   // Not sending addmission letter pdf for Delhi campus
   if (langType === "both") {
-
-    offerLetterPDFPath = (campus == "Udaipur") ? path.join(
-      __dirname, "../assets/offerLetter/pdf/Abhilasha Offer Letter.pdf") : path.join(
-        __dirname, "../assets/offerLetter/pdf/admission_letter.pdf");
+    offerLetterPDFPath = path.join(
+      __dirname,
+      "../assets/offerLetter/pdf/admission_letter.pdf"
+    );
   } else if (langType === "onlyEnglish") {
     offerLetterPDFPath = path.join(
       __dirname,
@@ -324,7 +324,7 @@ async function main(
     else if (campus === "Bangalore") {
       ccArr.push('bangalore_admissions@navgurukul.org')
     }
-    else if (campus === "Sarjapur") {
+    else if (campus === "Sarjapura") {
       ccArr.push('Sarjapur_team@navgurukul.org')
     }
     else if (campus === "Tripura") {
