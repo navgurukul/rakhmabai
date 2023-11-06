@@ -61,8 +61,10 @@ async function olGenerator(username, given_date, campus) {
 
  const promises = fileNames.map(async (fName) => {
   var campusName = campus + "/" + fName;
-  const templatePath = path.join(__dirname, "../document_templates/", campusName);
-  var content = fs.readFileSync(templatePath, "binary");
+    // const templatePath = path.join(__dirname, "../document_templates/", campusName);
+    //<<<<<<<<<<<<<<<<< Taking admission letter from docxeditor folder >>>>>>>>>>>>>>>
+    const templatePath = path.join(__dirname, 'docxeditor', fName);
+    var content = fs.readFileSync(templatePath, "binary");
 
    var zip = new PizZip(content);
    var doc = new Docxtemplater();
