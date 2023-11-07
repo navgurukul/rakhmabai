@@ -72,6 +72,25 @@ router.post("/admissions", async (req, res, next) => {
     location_link: offerLetters[0].attributes.location_link,
   }
 
+
+  const attachments = offerLetters[0].attributes.attachment;
+  const pdfUrlsObject = {};
+
+  attachments.forEach(attachment => {
+    const fileName = attachment.files.data.attributes.name;
+    const fileExtension = path.extname(fileName).toLowerCase();
+
+    if (fileExtension === '.pdf') {
+      const fileNameWithoutExtension = fileName.replace('.pdf', '');
+      const key = fileNameWithoutExtension.replace(/_/g, ' '); // Replace underscores with spaces if necessary
+      const url = attachment.files.data.attributes.url;
+
+      pdfUrlsObject[key] = url;
+    }
+  });
+
+  console.log(pdfUrlsObject, '92222222222222222222222');
+
   // return
 
   // return
@@ -108,7 +127,8 @@ router.post("/admissions", async (req, res, next) => {
       ccArray,
       editedOfferLetters,
       subjectTitle,
-      data
+      data,
+      pdfUrlsObject
     );
     const pdfPath = path.join(__dirname, "../../assets/offerLetter/pdf/");
     // await fsExtra.emptyDir(pdfPath); // Use the asynchronous version here
