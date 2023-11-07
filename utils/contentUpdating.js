@@ -31,7 +31,7 @@ async function editingContent(receive) {
 
             // Assuming 'formattedText' contains the formatted HTML content
             const finalHTML = `<body>
-                Hi<b>USERNAME</b>,<br>
+                Hi&nbsp;<b>USERNAME</b>,<br>
                 ${formattedText}
                 <br><b>Navgurukul - Aspirational Jobs for all.</b>
             </body>`;
