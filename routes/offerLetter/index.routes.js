@@ -62,7 +62,9 @@ router.post("/admissions", async (req, res, next) => {
   const { receiverEmail, name, campus, cc } = req.body;
   const response = await axios.get(`${strapiUrl}`);
   let offerLetters = response.data.data;
-  offerLetters = offerLetters.filter((item) => item.attributes.campusName == req.body.campus);//'Dantewada');
+  offerLetters = offerLetters.filter((item) => 
+  item.attributes.campusName.toLowerCase() === req.body.campus.toLowerCase()
+);
   const editedOfferLetters = await editingContent(offerLetters);
   await downloadFiles(offerLetters);
   let subjectTitle = offerLetters[0].attributes.subject;
