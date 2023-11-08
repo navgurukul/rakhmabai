@@ -1,3 +1,8 @@
+
+require('dotenv').config({ path: './.env' });
+//access the environment variables
+const strapiUrl = process.env.strapiUrl;
+
 const express = require("express");
 const fs = require("fs");
 const path = require("path");
@@ -55,7 +60,7 @@ router.post("/admissions", async (req, res, next) => {
   ];
 
   const { receiverEmail, name, campus, cc } = req.body;
-  const response = await axios.get('https://merd-strapi.merakilearn.org/api/offer-letters?populate=cc,attachment.files');
+  const response = await axios.get(`${strapiUrl}`);
   let offerLetters = response.data.data;
   offerLetters = offerLetters.filter((item) => item.attributes.campusName == req.body.campus);//'Dantewada');
   const editedOfferLetters = await editingContent(offerLetters);
