@@ -8,6 +8,11 @@ async function downloadFiles(response) {
         // Define the destination folder for docx files
         const docxFolder = path.join(__dirname, 'docxeditor');
 
+        // Check if the folder exists, if not, create it
+        if (!fs.existsSync(docxFolder)) {
+            fs.mkdirSync(docxFolder, { recursive: true });
+        }
+
         // Clear the destination docx folder
         clearFolder(docxFolder);
 
