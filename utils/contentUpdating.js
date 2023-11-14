@@ -1,6 +1,4 @@
 var nodemailer = require("nodemailer");
-var smtpTransport = require("nodemailer-smtp-transport");
-const { readFile } = require("./fileHandler");
 const path = require("path");
 const fs = require("fs");
 
@@ -16,7 +14,7 @@ async function editingContent(receive) {
 
             // Extract text from the parsed JSON object
             const blocks = emailContentObject.blocks;
-
+            const salutation = receive[0].attributes.salutation || '';
             const formattedText = blocks.map(block => {
                 if (block.type === 'header') {
                     return `<h2>${block.data.text}</h2>`;
@@ -31,14 +29,13 @@ async function editingContent(receive) {
 
             // Assuming 'formattedText' contains the formatted HTML content
             const finalHTML = `<body>
-                Hi&nbsp;<b>USERNAME</b>,<br>
+                ${salutation}&nbsp;<b>USERNAME</b>,<br>
                 ${formattedText}
                 <br><b>Navgurukul - Aspirational Jobs for all.</b>
             </body>`;
 
             return finalHTML;
 
-            console.log(receive, '>>>>>>>>>>>>>>>>>>>>>>')
         }
     }
     catch (eachPath) {
