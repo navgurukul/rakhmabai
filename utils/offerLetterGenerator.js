@@ -3,6 +3,9 @@ const path = require("path");
 const libre = require('libreoffice-convert');
 libre.convertAsync = require('util').promisify(libre.convert);
 
+const util = require("util");
+const readdir = util.promisify(fs.readdir)
+
 const PizZip = require("pizzip");
 const Docxtemplater = require("docxtemplater");
 
@@ -54,24 +57,30 @@ async function getCertificates(doc, username, given_date, fileName, campus) {
    console.error(e);
  }
 }
+
 async function olGenerator(username, given_date, campus) {
+  const docxEditorFolderPath = path.join(__dirname, "docxeditor");
 
-  // const fileNames = ["admission_letter.docx", "admission_letter_only_english.docx"];
- const fileNames = ["admission_letter.docx"];
+  try {
+    const fileNames = await readdir(docxEditorFolderPath);
+    const promises = fileNames.map(async (fName) => {
+      if (fName.endsWith(".docx")) {
+        const campusName = campus + "/" + fName;
+        const templatePath = path.join(docxEditorFolderPath, fName);
+        const content = fs.readFileSync(templatePath, "binary");
 
- const promises = fileNames.map(async (fName) => {
-  var campusName = campus + "/" + fName;
-  const templatePath = path.join(__dirname, "../document_templates/", campusName);
-  var content = fs.readFileSync(templatePath, "binary");
+        const zip = new PizZip(content);
+        const doc = new Docxtemplater();
+        doc.loadZip(zip);
+        doc.setOptions({ linebreaks: true });
+        await getCertificates(doc, username, given_date, fName.split(".")[0], campus);
+      }
+    });
 
-   var zip = new PizZip(content);
-   var doc = new Docxtemplater();
-   doc.loadZip(zip);
-   doc.setOptions({ linebreaks: true });
-   await getCertificates(doc, username, given_date, fName.split(".")[0], campus);
- });
-
- await Promise.all(promises);
+    await Promise.all(promises);
+  } catch (error) {
+    console.error("Error reading files from docxeditor folder:", error);
+  }
 }
 
 
