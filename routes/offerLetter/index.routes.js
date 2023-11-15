@@ -96,32 +96,10 @@ router.post("/admissions", async (req, res, next) => {
     }
   });
 
-  console.log(pdfUrlsObject, '92222222222222222222222');
-
-  // return
-
-  // return
-  // const fachaName = {
-  //   Dharamshala: "Ram Ashish",
-  //   Pune: "Snehati",
-  //   Bangalore: "Rupali",
-  //   Sarjapura: "Mehak",
-  //   Tripura: "Kajal",
-  //   Delhi: "Navgurukul",
-  //   Amravati: "Atiya",
-  //   Dantewada: "Rupali",
-  //   Jashpur: "Sakshi",
-  //   Udaipur: "Shivani",
-  //   Raipur: "Parveen Bano"
-  // };
-
   const senderName = offerLetters[0].attributes.sender_name //fachaName[campus];
 
   await olGenerator(name, date, campus);
 
-  // let ccArray = ['ujjwalkashyap97987@gmail.com'];
-  // ccArray = cc.split(",");
-  // console.log(ccArray, '105555555555555')
   try {
     await main(
       senderName,
