@@ -1,0 +1,10 @@
+services:
+  dev-rakhmabai:
+    build:
+      dockerfile: Dev-DockerFile
+      context: .
+    image : dev-rakhmabai
+    container_name: dev-rakhmabai-container
+    ports:
+      - "9000:9000"
+   

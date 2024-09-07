@@ -1,0 +1,9 @@
+services:
+  rakhmabai:
+    build:
+      dockerfile: Dockerfile
+      context: .
+    image : rakhmabai-prod
+    container_name: rakhmabai-prod-container
+    ports:
+      - "9191:9191" 
